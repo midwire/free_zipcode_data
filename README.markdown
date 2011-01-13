@@ -2,14 +2,24 @@
 
 We got sick and tired of trying to find free zipcode data.  So we pulled down all the census data we could find, parsed it and exported it into these .csv files.
 
-## `all_us_counties.csv`
+## CSV Data
+
+### `all_us_counties.csv`
     name, state, county_seat
 
-## `all_us_states.csv`
+### `all_us_states.csv`
     abbr, name
 
-## `all_us_zipcodes.csv`
+### `all_us_zipcodes.csv`
     code, city, state, county, area_code, lat, lon
+    
+Both `lat` and `lon`, geocodes, are populated for each zipcode record.
+
+## SQL Data
+
+### `counties_states_zipcodes.sql`
+
+This is a MySQL ready dump of the three tables `counties`, `states` and `zipcodes`.  Both structure and data, along with complete and extended INSERTs are included in the dump.
 
 ## Updating
 
