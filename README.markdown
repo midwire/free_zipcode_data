@@ -27,6 +27,13 @@ Please add any missing data, or correct mistakes, and send us a pull request.
 
 ## Errata
 
+### 01/24/2011:
+
+* 670 orphaned zipcodes without an associated county
+* 1 county without any zipcodes (PISCATAGUIS, Maine)
+
+### 01/13/2011:
+
 At last check there were ...
 
 * 897 orphaned zipcodes without an associated county
