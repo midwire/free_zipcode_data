@@ -27,6 +27,13 @@ Please add any missing data, or correct mistakes, and send us a pull request.
 
 ## Errata
 
+### 05/04/2011:
+
+* Removed un-assigned zipcodes, which were not valid for today
+* Added a Rakefile and some rake tasks to facilitate building a SQLite relational database for the three tables (states, counties, zipcodes)
+* Zipcodes without an associated county == 0
+* Counties without a zipcode == 1 (PISCATAGUIS, Maine)
+
 ### 01/24/2011:
 
 * 670 orphaned zipcodes without an associated county
