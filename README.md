@@ -21,6 +21,7 @@ See the GeoNames [readme.txt](http://download.geonames.org/export/zip/readme.txt
 ```bash
 $ git clone https://github.com/midwire/free_zipcode_data
 $ cd free_zipcode_data
+$ bundle install
 ```
 
 Determine the countries you want to use at [GeoNames](http://download.geonames.org/export/zip/), or just use the rake task without any `country` argument to get zipcode data for all countries...
@@ -39,7 +40,7 @@ $ rake data:build[country]
 ```
 
 ```bash
-# populate_db will automatically download the zips and build the .csv files
+# populate_db will automatically download the zips and build the sqlite3 db
 $ rake data:populate_db[country]
 # rake data:populate_db - ALL countries - WARNING: takes a long time
 ```
@@ -95,6 +96,15 @@ The zipcode data is licensed under a <a rel="license" href="http://creativecommo
 <a rel="license" href="http://creativecommons.org/licenses/by/3.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by/3.0/88x31.png" /></a>
 
 ## Errata
+
+### 10/28/2017:
+
+* Removed old .csv files
+* Add template files (CODE_OF_CONDUCT.md, CONTRIBUTING.md, ISSUE_TEMPLATE.md, LICENSE.md, PULL_REQUEST_TEMPLATE.md)
+* Use new data provider - [GeoNames](http://www.geonames.org)
+* Test USA
+* Started to test `allCountries.zip` but it takes too long. Let me know if there are any bugs.
+* Create `country_lookup_table.yml` for country code lookups
 
 ### 05/04/2011:
 

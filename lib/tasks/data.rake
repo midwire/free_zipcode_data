@@ -3,10 +3,9 @@ require 'sqlite3'
 require 'csv'
 require 'open-uri'
 require 'zip'
-require 'nokogiri'
 require 'yaml'
 require 'midwire_common/string'
-require 'pry'
+# require 'pry'
 
 # rubocop:disable Metrics/BlockLength
 namespace :data do
