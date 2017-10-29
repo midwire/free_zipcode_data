@@ -1,0 +1,989 @@
+---
+AF:
+  :name: Afghanistan
+  :alpha3: AFG
+  :iso: '004'
+AX:
+  :name: Aland Islands
+  :alpha3: ALA
+  :iso: '248'
+AL:
+  :name: Albania
+  :alpha3: ALB
+  :iso: 008
+DZ:
+  :name: Algeria
+  :alpha3: DZA
+  :iso: '012'
+AS:
+  :name: American Samoa
+  :alpha3: ASM
+  :iso: '016'
+AD:
+  :name: Andorra
+  :alpha3: AND
+  :iso: '020'
+AO:
+  :name: Angola
+  :alpha3: AGO
+  :iso: '024'
+AI:
+  :name: Anguilla
+  :alpha3: AIA
+  :iso: '660'
+AQ:
+  :name: "Antarctica  \t  \t  \t"
+  :alpha3: ATA
+  :iso: '010'
+AG:
+  :name: Antigua and Barbuda
+  :alpha3: ATG
+  :iso: 028
+AR:
+  :name: Argentina
+  :alpha3: ARG
+  :iso: '032'
+AM:
+  :name: Armenia
+  :alpha3: ARM
+  :iso: '051'
+AW:
+  :name: Aruba
+  :alpha3: ABW
+  :iso: '533'
+AU:
+  :name: Australia
+  :alpha3: AUS
+  :iso: '036'
+AT:
+  :name: Austria
+  :alpha3: AUT
+  :iso: '040'
+AZ:
+  :name: Azerbaijan
+  :alpha3: AZE
+  :iso: '031'
+BS:
+  :name: Bahamas
+  :alpha3: BHS
+  :iso: '044'
+BH:
+  :name: Bahrain
+  :alpha3: BHR
+  :iso: 048
+BD:
+  :name: Bangladesh
+  :alpha3: BGD
+  :iso: '050'
+BB:
+  :name: Barbados
+  :alpha3: BRB
+  :iso: '052'
+BY:
+  :name: Belarus
+  :alpha3: BLR
+  :iso: '112'
+BE:
+  :name: Belgium
+  :alpha3: BEL
+  :iso: '056'
+BZ:
+  :name: Belize
+  :alpha3: BLZ
+  :iso: 084
+BJ:
+  :name: Benin
+  :alpha3: BEN
+  :iso: '204'
+BM:
+  :name: Bermuda
+  :alpha3: BMU
+  :iso: '060'
+BT:
+  :name: Bhutan
+  :alpha3: BTN
+  :iso: '064'
+BO:
+  :name: Bolivia
+  :alpha3: BOL
+  :iso: 068
+BA:
+  :name: Bosnia and Herzegovina
+  :alpha3: BIH
+  :iso: '070'
+BW:
+  :name: Botswana
+  :alpha3: BWA
+  :iso: '072'
+BV:
+  :name: Bouvet Island
+  :alpha3: BVT
+  :iso: '074'
+BR:
+  :name: Brazil
+  :alpha3: BRA
+  :iso: '076'
+VG:
+  :name: British Virgin Islands
+  :alpha3: VGB
+  :iso: 092
+IO:
+  :name: British Indian Ocean Territory
+  :alpha3: IOT
+  :iso: 086
+BN:
+  :name: Brunei Darussalam
+  :alpha3: BRN
+  :iso: 096
+BG:
+  :name: Bulgaria
+  :alpha3: BGR
+  :iso: '100'
+BF:
+  :name: Burkina Faso
+  :alpha3: BFA
+  :iso: '854'
+BI:
+  :name: Burundi
+  :alpha3: BDI
+  :iso: '108'
+KH:
+  :name: Cambodia
+  :alpha3: KHM
+  :iso: '116'
+CM:
+  :name: Cameroon
+  :alpha3: CMR
+  :iso: '120'
+CA:
+  :name: 'Canada '
+  :alpha3: CAN
+  :iso: '124'
+CV:
+  :name: Cape Verde
+  :alpha3: CPV
+  :iso: '132'
+KY:
+  :name: 'Cayman Islands '
+  :alpha3: CYM
+  :iso: '136'
+CF:
+  :name: Central African Republic
+  :alpha3: CAF
+  :iso: '140'
+TD:
+  :name: Chad
+  :alpha3: TCD
+  :iso: '148'
+CL:
+  :name: Chile
+  :alpha3: CHL
+  :iso: '152'
+CN:
+  :name: China
+  :alpha3: CHN
+  :iso: '156'
+HK:
+  :name: Hong Kong, SAR China
+  :alpha3: HKG
+  :iso: '344'
+MO:
+  :name: Macao, SAR China
+  :alpha3: MAC
+  :iso: '446'
+CX:
+  :name: Christmas Island
+  :alpha3: CXR
+  :iso: '162'
+CC:
+  :name: Cocos (Keeling) Islands
+  :alpha3: CCK
+  :iso: '166'
+CO:
+  :name: Colombia
+  :alpha3: COL
+  :iso: '170'
+KM:
+  :name: Comoros
+  :alpha3: COM
+  :iso: '174'
+CG:
+  :name: 'Congo (Brazzaville) '
+  :alpha3: COG
+  :iso: '178'
+CD:
+  :name: Congo, (Kinshasa)
+  :alpha3: COD
+  :iso: '180'
+CK:
+  :name: 'Cook Islands '
+  :alpha3: COK
+  :iso: '184'
+CR:
+  :name: Costa Rica
+  :alpha3: CRI
+  :iso: '188'
+CI:
+  :name: Côte d'Ivoire
+  :alpha3: CIV
+  :iso: '384'
+HR:
+  :name: Croatia
+  :alpha3: HRV
+  :iso: '191'
+CU:
+  :name: Cuba
+  :alpha3: CUB
+  :iso: '192'
+CY:
+  :name: Cyprus
+  :alpha3: CYP
+  :iso: '196'
+CZ:
+  :name: Czech Republic
+  :alpha3: CZE
+  :iso: '203'
+DK:
+  :name: Denmark
+  :alpha3: DNK
+  :iso: '208'
+DJ:
+  :name: Djibouti
+  :alpha3: DJI
+  :iso: '262'
+DM:
+  :name: Dominica
+  :alpha3: DMA
+  :iso: '212'
+DO:
+  :name: Dominican Republic
+  :alpha3: DOM
+  :iso: '214'
+EC:
+  :name: Ecuador
+  :alpha3: ECU
+  :iso: '218'
+EG:
+  :name: Egypt
+  :alpha3: EGY
+  :iso: '818'
+SV:
+  :name: El Salvador
+  :alpha3: SLV
+  :iso: '222'
+GQ:
+  :name: Equatorial Guinea
+  :alpha3: GNQ
+  :iso: '226'
+ER:
+  :name: Eritrea
+  :alpha3: ERI
+  :iso: '232'
+EE:
+  :name: Estonia
+  :alpha3: EST
+  :iso: '233'
+ET:
+  :name: Ethiopia
+  :alpha3: ETH
+  :iso: '231'
+FK:
+  :name: 'Falkland Islands (Malvinas) '
+  :alpha3: FLK
+  :iso: '238'
+FO:
+  :name: Faroe Islands
+  :alpha3: FRO
+  :iso: '234'
+FJ:
+  :name: Fiji
+  :alpha3: FJI
+  :iso: '242'
+FI:
+  :name: Finland
+  :alpha3: FIN
+  :iso: '246'
+FR:
+  :name: France
+  :alpha3: FRA
+  :iso: '250'
+GF:
+  :name: French Guiana
+  :alpha3: GUF
+  :iso: '254'
+PF:
+  :name: French Polynesia
+  :alpha3: PYF
+  :iso: '258'
+TF:
+  :name: 'French Southern Territories '
+  :alpha3: ATF
+  :iso: '260'
+GA:
+  :name: Gabon
+  :alpha3: GAB
+  :iso: '266'
+GM:
+  :name: Gambia
+  :alpha3: GMB
+  :iso: '270'
+GE:
+  :name: Georgia
+  :alpha3: GEO
+  :iso: '268'
+DE:
+  :name: 'Germany '
+  :alpha3: DEU
+  :iso: '276'
+GH:
+  :name: Ghana
+  :alpha3: GHA
+  :iso: '288'
+GI:
+  :name: 'Gibraltar '
+  :alpha3: GIB
+  :iso: '292'
+GR:
+  :name: Greece
+  :alpha3: GRC
+  :iso: '300'
+GL:
+  :name: Greenland
+  :alpha3: GRL
+  :iso: '304'
+GD:
+  :name: Grenada
+  :alpha3: GRD
+  :iso: '308'
+GP:
+  :name: Guadeloupe
+  :alpha3: GLP
+  :iso: '312'
+GU:
+  :name: Guam
+  :alpha3: GUM
+  :iso: '316'
+GT:
+  :name: Guatemala
+  :alpha3: GTM
+  :iso: '320'
+GG:
+  :name: Guernsey
+  :alpha3: GGY
+  :iso: '831'
+GN:
+  :name: Guinea
+  :alpha3: GIN
+  :iso: '324'
+GW:
+  :name: Guinea-Bissau
+  :alpha3: GNB
+  :iso: '624'
+GY:
+  :name: Guyana
+  :alpha3: GUY
+  :iso: '328'
+HT:
+  :name: Haiti
+  :alpha3: HTI
+  :iso: '332'
+HM:
+  :name: Heard and Mcdonald Islands
+  :alpha3: HMD
+  :iso: '334'
+VA:
+  :name: Holy See (Vatican City State)
+  :alpha3: VAT
+  :iso: '336'
+HN:
+  :name: Honduras
+  :alpha3: HND
+  :iso: '340'
+HU:
+  :name: Hungary
+  :alpha3: HUN
+  :iso: '348'
+IS:
+  :name: Iceland
+  :alpha3: ISL
+  :iso: '352'
+IN:
+  :name: India
+  :alpha3: IND
+  :iso: '356'
+ID:
+  :name: Indonesia
+  :alpha3: IDN
+  :iso: '360'
+IR:
+  :name: Iran, Islamic Republic of
+  :alpha3: IRN
+  :iso: '364'
+IQ:
+  :name: Iraq
+  :alpha3: IRQ
+  :iso: '368'
+IE:
+  :name: Ireland
+  :alpha3: IRL
+  :iso: '372'
+IM:
+  :name: 'Isle of Man '
+  :alpha3: IMN
+  :iso: '833'
+IL:
+  :name: 'Israel '
+  :alpha3: ISR
+  :iso: '376'
+IT:
+  :name: 'Italy '
+  :alpha3: ITA
+  :iso: '380'
+JM:
+  :name: Jamaica
+  :alpha3: JAM
+  :iso: '388'
+JP:
+  :name: Japan
+  :alpha3: JPN
+  :iso: '392'
+JE:
+  :name: Jersey
+  :alpha3: JEY
+  :iso: '832'
+JO:
+  :name: Jordan
+  :alpha3: JOR
+  :iso: '400'
+KZ:
+  :name: Kazakhstan
+  :alpha3: KAZ
+  :iso: '398'
+KE:
+  :name: Kenya
+  :alpha3: KEN
+  :iso: '404'
+KI:
+  :name: Kiribati
+  :alpha3: KIR
+  :iso: '296'
+KP:
+  :name: Korea (North)
+  :alpha3: PRK
+  :iso: '408'
+KR:
+  :name: Korea (South)
+  :alpha3: KOR
+  :iso: '410'
+KW:
+  :name: Kuwait
+  :alpha3: KWT
+  :iso: '414'
+KG:
+  :name: Kyrgyzstan
+  :alpha3: KGZ
+  :iso: '417'
+LA:
+  :name: Lao PDR
+  :alpha3: LAO
+  :iso: '418'
+LV:
+  :name: Latvia
+  :alpha3: LVA
+  :iso: '428'
+LB:
+  :name: Lebanon
+  :alpha3: LBN
+  :iso: '422'
+LS:
+  :name: Lesotho
+  :alpha3: LSO
+  :iso: '426'
+LR:
+  :name: Liberia
+  :alpha3: LBR
+  :iso: '430'
+LY:
+  :name: Libya
+  :alpha3: LBY
+  :iso: '434'
+LI:
+  :name: Liechtenstein
+  :alpha3: LIE
+  :iso: '438'
+LT:
+  :name: Lithuania
+  :alpha3: LTU
+  :iso: '440'
+LU:
+  :name: Luxembourg
+  :alpha3: LUX
+  :iso: '442'
+MK:
+  :name: Macedonia, Republic of
+  :alpha3: MKD
+  :iso: '807'
+MG:
+  :name: Madagascar
+  :alpha3: MDG
+  :iso: '450'
+MW:
+  :name: Malawi
+  :alpha3: MWI
+  :iso: '454'
+MY:
+  :name: Malaysia
+  :alpha3: MYS
+  :iso: '458'
+MV:
+  :name: Maldives
+  :alpha3: MDV
+  :iso: '462'
+ML:
+  :name: Mali
+  :alpha3: MLI
+  :iso: '466'
+MT:
+  :name: Malta
+  :alpha3: MLT
+  :iso: '470'
+MH:
+  :name: Marshall Islands
+  :alpha3: MHL
+  :iso: '584'
+MQ:
+  :name: Martinique
+  :alpha3: MTQ
+  :iso: '474'
+MR:
+  :name: Mauritania
+  :alpha3: MRT
+  :iso: '478'
+MU:
+  :name: Mauritius
+  :alpha3: MUS
+  :iso: '480'
+YT:
+  :name: Mayotte
+  :alpha3: MYT
+  :iso: '175'
+MX:
+  :name: Mexico
+  :alpha3: MEX
+  :iso: '484'
+FM:
+  :name: Micronesia, Federated States of
+  :alpha3: FSM
+  :iso: '583'
+MD:
+  :name: Moldova
+  :alpha3: MDA
+  :iso: '498'
+MC:
+  :name: Monaco
+  :alpha3: MCO
+  :iso: '492'
+MN:
+  :name: Mongolia
+  :alpha3: MNG
+  :iso: '496'
+ME:
+  :name: Montenegro
+  :alpha3: MNE
+  :iso: '499'
+MS:
+  :name: Montserrat
+  :alpha3: MSR
+  :iso: '500'
+MA:
+  :name: Morocco
+  :alpha3: MAR
+  :iso: '504'
+MZ:
+  :name: Mozambique
+  :alpha3: MOZ
+  :iso: '508'
+MM:
+  :name: Myanmar
+  :alpha3: MMR
+  :iso: '104'
+NA:
+  :name: Namibia
+  :alpha3: NAM
+  :iso: '516'
+NR:
+  :name: Nauru
+  :alpha3: NRU
+  :iso: '520'
+NP:
+  :name: Nepal
+  :alpha3: NPL
+  :iso: '524'
+NL:
+  :name: Netherlands
+  :alpha3: NLD
+  :iso: '528'
+AN:
+  :name: Netherlands Antilles
+  :alpha3: ANT
+  :iso: '530'
+NC:
+  :name: New Caledonia
+  :alpha3: NCL
+  :iso: '540'
+NZ:
+  :name: New Zealand
+  :alpha3: NZL
+  :iso: '554'
+NI:
+  :name: Nicaragua
+  :alpha3: NIC
+  :iso: '558'
+NE:
+  :name: Niger
+  :alpha3: NER
+  :iso: '562'
+NG:
+  :name: Nigeria
+  :alpha3: NGA
+  :iso: '566'
+NU:
+  :name: 'Niue '
+  :alpha3: NIU
+  :iso: '570'
+NF:
+  :name: Norfolk Island
+  :alpha3: NFK
+  :iso: '574'
+MP:
+  :name: Northern Mariana Islands
+  :alpha3: MNP
+  :iso: '580'
+'NO':
+  :name: Norway
+  :alpha3: NOR
+  :iso: '578'
+OM:
+  :name: Oman
+  :alpha3: OMN
+  :iso: '512'
+PK:
+  :name: Pakistan
+  :alpha3: PAK
+  :iso: '586'
+PW:
+  :name: Palau
+  :alpha3: PLW
+  :iso: '585'
+PS:
+  :name: Palestinian Territory
+  :alpha3: PSE
+  :iso: '275'
+PA:
+  :name: Panama
+  :alpha3: PAN
+  :iso: '591'
+PG:
+  :name: Papua New Guinea
+  :alpha3: PNG
+  :iso: '598'
+PY:
+  :name: Paraguay
+  :alpha3: PRY
+  :iso: '600'
+PE:
+  :name: Peru
+  :alpha3: PER
+  :iso: '604'
+PH:
+  :name: Philippines
+  :alpha3: PHL
+  :iso: '608'
+PN:
+  :name: 'Pitcairn '
+  :alpha3: PCN
+  :iso: '612'
+PL:
+  :name: Poland
+  :alpha3: POL
+  :iso: '616'
+PT:
+  :name: Portugal
+  :alpha3: PRT
+  :iso: '620'
+PR:
+  :name: Puerto Rico
+  :alpha3: PRI
+  :iso: '630'
+QA:
+  :name: Qatar
+  :alpha3: QAT
+  :iso: '634'
+RE:
+  :name: Réunion
+  :alpha3: REU
+  :iso: '638'
+RO:
+  :name: Romania
+  :alpha3: ROU
+  :iso: '642'
+RU:
+  :name: 'Russian Federation '
+  :alpha3: RUS
+  :iso: '643'
+RW:
+  :name: Rwanda
+  :alpha3: RWA
+  :iso: '646'
+BL:
+  :name: Saint-Barthélemy
+  :alpha3: BLM
+  :iso: '652'
+SH:
+  :name: 'Saint Helena '
+  :alpha3: SHN
+  :iso: '654'
+KN:
+  :name: Saint Kitts and Nevis
+  :alpha3: KNA
+  :iso: '659'
+LC:
+  :name: Saint Lucia
+  :alpha3: LCA
+  :iso: '662'
+MF:
+  :name: " Saint-Martin (French part)"
+  :alpha3: MAF
+  :iso: '663'
+PM:
+  :name: 'Saint Pierre and Miquelon '
+  :alpha3: SPM
+  :iso: '666'
+VC:
+  :name: Saint Vincent and Grenadines
+  :alpha3: VCT
+  :iso: '670'
+WS:
+  :name: Samoa
+  :alpha3: WSM
+  :iso: '882'
+SM:
+  :name: San Marino
+  :alpha3: SMR
+  :iso: '674'
+ST:
+  :name: Sao Tome and Principe
+  :alpha3: STP
+  :iso: '678'
+SA:
+  :name: Saudi Arabia
+  :alpha3: SAU
+  :iso: '682'
+SN:
+  :name: Senegal
+  :alpha3: SEN
+  :iso: '686'
+RS:
+  :name: Serbia
+  :alpha3: SRB
+  :iso: '688'
+SC:
+  :name: Seychelles
+  :alpha3: SYC
+  :iso: '690'
+SL:
+  :name: Sierra Leone
+  :alpha3: SLE
+  :iso: '694'
+SG:
+  :name: Singapore
+  :alpha3: SGP
+  :iso: '702'
+SK:
+  :name: Slovakia
+  :alpha3: SVK
+  :iso: '703'
+SI:
+  :name: Slovenia
+  :alpha3: SVN
+  :iso: '705'
+SB:
+  :name: Solomon Islands
+  :alpha3: SLB
+  :iso: 090
+SO:
+  :name: Somalia
+  :alpha3: SOM
+  :iso: '706'
+ZA:
+  :name: South Africa
+  :alpha3: ZAF
+  :iso: '710'
+GS:
+  :name: South Georgia and the South Sandwich Islands
+  :alpha3: SGS
+  :iso: '239'
+SS:
+  :name: South Sudan
+  :alpha3: SSD
+  :iso: '728'
+ES:
+  :name: Spain
+  :alpha3: ESP
+  :iso: '724'
+LK:
+  :name: Sri Lanka
+  :alpha3: LKA
+  :iso: '144'
+SD:
+  :name: Sudan
+  :alpha3: SDN
+  :iso: '736'
+SR:
+  :name: Suriname
+  :alpha3: SUR
+  :iso: '740'
+SJ:
+  :name: 'Svalbard and Jan Mayen Islands '
+  :alpha3: SJM
+  :iso: '744'
+SZ:
+  :name: Swaziland
+  :alpha3: SWZ
+  :iso: '748'
+SE:
+  :name: Sweden
+  :alpha3: SWE
+  :iso: '752'
+CH:
+  :name: Switzerland
+  :alpha3: CHE
+  :iso: '756'
+SY:
+  :name: Syrian Arab Republic (Syria)
+  :alpha3: SYR
+  :iso: '760'
+TW:
+  :name: 'Taiwan, Republic of China '
+  :alpha3: TWN
+  :iso: '158'
+TJ:
+  :name: Tajikistan
+  :alpha3: TJK
+  :iso: '762'
+TZ:
+  :name: 'Tanzania, United Republic of '
+  :alpha3: TZA
+  :iso: '834'
+TH:
+  :name: Thailand
+  :alpha3: THA
+  :iso: '764'
+TL:
+  :name: Timor-Leste
+  :alpha3: TLS
+  :iso: '626'
+TG:
+  :name: Togo
+  :alpha3: TGO
+  :iso: '768'
+TK:
+  :name: 'Tokelau '
+  :alpha3: TKL
+  :iso: '772'
+TO:
+  :name: Tonga
+  :alpha3: TON
+  :iso: '776'
+TT:
+  :name: Trinidad and Tobago
+  :alpha3: TTO
+  :iso: '780'
+TN:
+  :name: Tunisia
+  :alpha3: TUN
+  :iso: '788'
+TR:
+  :name: Turkey
+  :alpha3: TUR
+  :iso: '792'
+TM:
+  :name: Turkmenistan
+  :alpha3: TKM
+  :iso: '795'
+TC:
+  :name: 'Turks and Caicos Islands '
+  :alpha3: TCA
+  :iso: '796'
+TV:
+  :name: Tuvalu
+  :alpha3: TUV
+  :iso: '798'
+UG:
+  :name: Uganda
+  :alpha3: UGA
+  :iso: '800'
+UA:
+  :name: Ukraine
+  :alpha3: UKR
+  :iso: '804'
+AE:
+  :name: United Arab Emirates
+  :alpha3: ARE
+  :iso: '784'
+GB:
+  :name: United Kingdom
+  :alpha3: GBR
+  :iso: '826'
+US:
+  :name: United States of America
+  :alpha3: USA
+  :iso: '840'
+UM:
+  :name: 'US Minor Outlying Islands '
+  :alpha3: UMI
+  :iso: '581'
+UY:
+  :name: Uruguay
+  :alpha3: URY
+  :iso: '858'
+UZ:
+  :name: Uzbekistan
+  :alpha3: UZB
+  :iso: '860'
+VU:
+  :name: Vanuatu
+  :alpha3: VUT
+  :iso: '548'
+VE:
+  :name: Venezuela (Bolivarian Republic)
+  :alpha3: VEN
+  :iso: '862'
+VN:
+  :name: Viet Nam
+  :alpha3: VNM
+  :iso: '704'
+VI:
+  :name: Virgin Islands, US
+  :alpha3: VIR
+  :iso: '850'
+WF:
+  :name: 'Wallis and Futuna Islands '
+  :alpha3: WLF
+  :iso: '876'
+EH:
+  :name: 'Western Sahara '
+  :alpha3: ESH
+  :iso: '732'
+YE:
+  :name: Yemen
+  :alpha3: YEM
+  :iso: '887'
+ZM:
+  :name: Zambia
+  :alpha3: ZMB
+  :iso: '894'
+ZW:
+  :name: Zimbabwe
+  :alpha3: ZWE
+  :iso: '716'

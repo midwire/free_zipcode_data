@@ -1,0 +1,91 @@
+AllCops:
+  # Include gemspec and Rakefile
+  Include:
+    - '**/*.gemspec'
+    - '**/*.podspec'
+    - '**/*.jbuilder'
+    - '**/*.rake'
+    - '**/Gemfile'
+    - '**/Rakefile'
+    - '**/Capfile'
+    - '**/Guardfile'
+    - '**/Podfile'
+    - '**/Thorfile'
+    - '**/Vagrantfile'
+  Exclude:
+    - 'vendor/**/*'
+    - 'stubs/**/*'
+
+# Checks formatting of special comments
+CommentAnnotation:
+  Keywords:
+    - TODO
+    - FIXME
+    - OPTIMIZE
+    - HACK
+    - REVIEW
+
+########################################
+# Style Cops
+
+Style/Documentation:
+  Enabled: false
+
+Style/FileName:
+  Enabled: false
+
+Style/AlignParameters:
+  EnforcedStyle: with_fixed_indentation
+
+Style/RegexpLiteral:
+  Enabled: false
+
+Style/EmptyLinesAroundBlockBody:
+  Enabled: false
+
+Style/RaiseArgs:
+  Enabled: false
+
+Style/DoubleNegation:
+  Enabled: false
+
+Style/SignalException:
+  EnforcedStyle: semantic
+
+Style/ClassAndModuleChildren:
+  Enabled: false
+
+Style/MultilineMethodCallIndentation:
+  EnforcedStyle: indented
+  IndentationWidth: 4
+
+Style/CaseIndentation:
+  Enabled: false
+
+Style/TrivialAccessors:
+  Enabled: false
+
+Style/NumericLiterals:
+  Enabled: false
+
+########################################
+# Lint Cops
+
+Lint/Eval:
+  Enabled: true
+
+Lint/AssignmentInCondition:
+  Enabled: false
+
+########################################
+# Metrics Cops
+
+Metrics/LineLength:
+  Max: 110
+
+Metrics/MethodLength:
+  CountComments: false # count full line comments?
+  Max: 20
+
+Metrics/ClassLength:
+  Max: 120

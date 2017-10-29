@@ -2,3 +2,7 @@ ZIP_CODES.txt
 zip_codes.zip
 zip_dump.csv
 zip_codes.db
+/.bundle
+/free_zipcode_data.sqlite3
+/data
+/build
