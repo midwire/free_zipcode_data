@@ -254,12 +254,12 @@ SQL
       end
     end
 
-    end_time = Time.now - start_time
     # save to disk
     disk_db = SQLite3::Database.new('free_zipcode_data.sqlite3')
     backup = SQLite3::Backup.new(disk_db, 'main', database, 'main')
     backup.step(-1)
     backup.finish
+    end_time = Time.now - start_time
     puts ">>>> Completed in #{end_time} seconds"
   end
 
