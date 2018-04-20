@@ -4,8 +4,6 @@ require 'csv'
 require 'open-uri'
 require 'zip'
 require 'yaml'
-require 'midwire_common/string'
-# require 'pry'
 
 # rubocop:disable Metrics/BlockLength
 namespace :data do
@@ -87,75 +85,75 @@ namespace :data do
 
   # desc 'Create countries table'
   task create_countries_table: :kill_db do
-    schema = <<-STOP.here_with_pipe
-      |create table countries (
-      |  id integer not null primary key,
-      |  alpha2 varchar(2) not null,
-      |  alpha3 varchar(3),
-      |  iso varchar(3),
-      |  name varchar(255) not null
-      |)
-    STOP
+    schema = <<-SQL
+CREATE TABLE countries (
+  id INTEGER NOT NULL PRIMARY KEY,
+  alpha2 VARCHAR(2) NOT NULL,
+  alpha3 VARCHAR(3),
+  iso VARCHAR(3),
+  name VARCHAR(255) NOT NULL
+)
+SQL
     database.execute_batch(schema)
-    ndx = <<-STOP.here_with_pipe(' ')
-      |CREATE UNIQUE INDEX "main"."unique_country_alpha2"
-      |ON countries (alpha2 COLLATE NOCASE ASC);
-    STOP
+    ndx = <<-SQL
+CREATE UNIQUE INDEX main.unique_country_alpha2
+ON countries (alpha2 COLLATE NOCASE ASC);
+SQL
     database.execute_batch(ndx)
   end
 
   # desc 'Create states table'
   task create_states_table: :create_countries_table do
-    schema = <<-STOP.here_with_pipe
-      |create table states (
-      |  id integer not null primary key,
-      |  country_id integer not null,
-      |  abbr varchar(2) not null,
-      |  name varchar(255)
-      |)
-    STOP
+    schema = <<-SQL
+CREATE TABLE states (
+  id INTEGER NOT NULL PRIMARY KEY,
+  country_id INTEGER NOT NULL,
+  abbr VARCHAR(2) NOT NULL,
+  name VARCHAR(255)
+)
+SQL
     database.execute_batch(schema)
-    ndx = <<-STOP.here_with_pipe(' ')
-      |CREATE UNIQUE INDEX "main"."unique_state"
-      |ON states (abbr, country_id COLLATE NOCASE ASC);
-    STOP
+    ndx = <<-SQL
+CREATE UNIQUE INDEX main.unique_state
+ON states (abbr, country_id COLLATE NOCASE ASC);
+SQL
     database.execute_batch(ndx)
   end
 
   # desc 'Create counties table'
   task create_counties_table: :create_states_table do
-    schema = <<-STOP.here_with_pipe
-      |create table counties (
-      |  id integer not null primary key,
-      |  state_id integer,
-      |  abbr varchar(255),
-      |  name varchar(255),
-      |  county_seat varchar(255)
-      |)
-    STOP
+    schema = <<-SQL
+CREATE TABLE counties (
+  id INTEGER NOT NULL PRIMARY KEY,
+  state_id INTEGER,
+  abbr VARCHAR(255),
+  name VARCHAR(255),
+  county_seat VARCHAR(255)
+)
+SQL
     database.execute_batch(schema)
   end
 
   # desc 'Create zipcodes table'
   task create_zipcodes_table: :create_counties_table do
-    schema = <<-STOP.here_with_pipe
-      |create table zipcodes (
-      |  id integer not null primary key,
-      |  code varchar(10) not null,
-      |  state_id integer,
-      |  county_id integer,
-      |  city varchar(255),
-      |  area_code varchar(3),
-      |  lat float,
-      |  lon float,
-      |  accuracy varchar(8)
-      |)
-    STOP
+    schema = <<-SQL
+CREATE TABLE zipcodes (
+  id INTEGER NOT NULL PRIMARY KEY,
+  code VARCHAR(10) NOT NULL,
+  state_id INTEGER,
+  county_id INTEGER,
+  city VARCHAR(255),
+  area_code VARCHAR(3),
+  lat FLOAT,
+  lon FLOAT,
+  accuracy VARCHAR(8)
+)
+SQL
     database.execute_batch(schema)
-    ndx = <<-STOP.here_with_pipe(' ')
-      |CREATE UNIQUE INDEX "main"."unique_zipcode"
-      |ON zipcodes (state_id, code, city COLLATE NOCASE ASC);
-    STOP
+    ndx = <<-SQL
+CREATE UNIQUE INDEX main.unique_zipcode
+ON zipcodes (state_id, code, city COLLATE NOCASE ASC);
+SQL
     database.execute_batch(ndx)
   end
 
@@ -181,13 +179,13 @@ namespace :data do
       count += 1
 
       # insert country
-      sql = <<-STOP.here_with_pipe(' ')
-        |INSERT INTO countries (alpha2, alpha3, iso, name)
-        |VALUES ('#{row['COUNTRY']}',
-        |  '#{country_hash[:alpha3]}',
-        |  '#{country_hash[:iso]}',
-        |  '#{country_hash[:name]}')
-      STOP
+      sql = <<-SQL
+INSERT INTO countries (alpha2, alpha3, iso, name)
+VALUES ('#{row['COUNTRY']}',
+  '#{country_hash[:alpha3]}',
+  '#{country_hash[:iso]}',
+  '#{country_hash[:name]}')
+SQL
       begin
         database.execute(sql)
       rescue SQLite3::ConstraintException
@@ -197,13 +195,13 @@ namespace :data do
       # state
       if row['STATE']
         country_id = get_country_id(row['COUNTRY'])
-        sql = <<-STOP.here_with_pipe(' ')
-          |INSERT INTO states (abbr, name, country_id)
-          |VALUES ('#{row['SHORT_STATE']}',
-          |  '#{escape_single_quotes(row['STATE'])}',
-          |  #{country_id}
-          |)
-        STOP
+        sql = <<-SQL
+INSERT INTO states (abbr, name, country_id)
+VALUES ('#{row['SHORT_STATE']}',
+  '#{escape_single_quotes(row['STATE'])}',
+  #{country_id}
+)
+SQL
         begin
           database.execute(sql)
         rescue StandardError => err
@@ -214,13 +212,13 @@ namespace :data do
       # county
       if row['COUNTY']
         state_id = get_state_id(row['SHORT_STATE'])
-        sql = <<-STOP.here_with_pipe(' ')
-          |INSERT INTO counties (state_id, abbr, name)
-          |VALUES ('#{state_id}',
-          |  '#{row['SHORT_COUNTY']}',
-          |  '#{escape_single_quotes(row['COUNTY'])}'
-          |)
-        STOP
+        sql = <<-SQL
+INSERT INTO counties (state_id, abbr, name)
+VALUES ('#{state_id}',
+  '#{row['SHORT_COUNTY']}',
+  '#{escape_single_quotes(row['COUNTY'])}'
+)
+SQL
         begin
           database.execute(sql)
         rescue StandardError => err
@@ -233,17 +231,17 @@ namespace :data do
         state_id = get_state_id(row['SHORT_STATE'])
         county_id = get_county_id(row['COUNTY'])
         city_name = escape_single_quotes(row['CITY'])
-        sql = <<-STOP.here_with_pipe(' ')
-          |INSERT INTO zipcodes (code, state_id, county_id, city, lat, lon, accuracy)
-          |VALUES ('#{row['POSTAL_CODE']}',
-          |  '#{state_id}',
-          |  '#{county_id}',
-          |  '#{city_name}',
-          |  '#{row['LATITUDE']}',
-          |  '#{row['LONGITUDE']}',
-          |  '#{row['ACCURACY']}'
-          |)
-        STOP
+        sql = <<-SQL
+INSERT INTO zipcodes (code, state_id, county_id, city, lat, lon, accuracy)
+VALUES ('#{row['POSTAL_CODE']}',
+  '#{state_id}',
+  '#{county_id}',
+  '#{city_name}',
+  '#{row['LATITUDE']}',
+  '#{row['LONGITUDE']}',
+  '#{row['ACCURACY']}'
+)
+SQL
         begin
           database.execute(sql)
         rescue SQLite3::ConstraintException => err
@@ -256,6 +254,11 @@ namespace :data do
       end
     end
 
+    # save to disk
+    disk_db = SQLite3::Database.new('free_zipcode_data.sqlite3')
+    backup = SQLite3::Backup.new(disk_db, 'main', database, 'main')
+    backup.step(-1)
+    backup.finish
     end_time = Time.now - start_time
     puts ">>>> Completed in #{end_time} seconds"
   end
@@ -263,7 +266,7 @@ namespace :data do
   private
 
   def database
-    @db ||= SQLite3::Database.new('free_zipcode_data.sqlite3')
+    @db ||= SQLite3::Database.new(':memory:')
   end
 
   def get_country_id(country)
