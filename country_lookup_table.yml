@@ -10,7 +10,7 @@ AX:
 AL:
   :name: Albania
   :alpha3: ALB
-  :iso: 008
+  :iso: '008'
 DZ:
   :name: Algeria
   :alpha3: DZA

@@ -1,0 +1,9 @@
+#!/usr/bin/env ruby
+
+require 'rubygems'
+require 'bundler/setup'
+
+require 'free_zipcode_data'
+require 'free_zipcode_data/runner'
+
+FreeZipcodeData::Runner.instance.start
