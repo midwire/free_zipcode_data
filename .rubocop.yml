@@ -1,4 +1,6 @@
 AllCops:
+  TargetRubyVersion: 2.3
+
   # Include gemspec and Rakefile
   Include:
     - '**/*.gemspec'
@@ -15,6 +17,7 @@ AllCops:
   Exclude:
     - 'vendor/**/*'
     - 'stubs/**/*'
+    - 'spec/support/shared_contexts/*'
 
 # Checks formatting of special comments
 CommentAnnotation:
@@ -49,32 +52,16 @@ Style/RaiseArgs:
 Style/DoubleNegation:
   Enabled: false
 
-Style/SignalException:
-  EnforcedStyle: semantic
-
-Style/ClassAndModuleChildren:
-  Enabled: false
-
-Style/MultilineMethodCallIndentation:
-  EnforcedStyle: indented
-  IndentationWidth: 4
-
-Style/CaseIndentation:
-  Enabled: false
-
-Style/TrivialAccessors:
-  Enabled: false
-
-Style/NumericLiterals:
+Style/PerlBackrefs:
   Enabled: false
 
 ########################################
 # Lint Cops
 
 Lint/Eval:
-  Enabled: true
+  Enabled: false
 
-Lint/AssignmentInCondition:
+Lint/HandleExceptions:
   Enabled: false
 
 ########################################
@@ -85,7 +72,14 @@ Metrics/LineLength:
 
 Metrics/MethodLength:
   CountComments: false # count full line comments?
-  Max: 20
+  Max: 30
 
 Metrics/ClassLength:
   Max: 120
+
+Metrics/AbcSize:
+  Enabled: false
+
+# rubocop:disable Metrics/AbcSize
+# rubocop:disable Metrics/MethodLength
+# rubocop:disable Metrics/BlockLength

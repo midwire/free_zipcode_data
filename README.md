@@ -90,6 +90,10 @@ create table zipcodes (
 
 Both `lat` and `lon`, geocodes, are populated for each zipcode record.
 
+## Development
+
+If you want to run the specs or do development work, set `GEM_ENV='development'`
+
 ## Data License
 
 The zipcode data is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by/3.0/">Creative Commons Attribution 3.0 Unported License</a>, carried forward from [GeoNames](http://www.geonames.org).<br />
