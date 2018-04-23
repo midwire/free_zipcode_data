@@ -30,6 +30,9 @@ module ETL
           database: database,
           tablename: options[:zipcode_tablename]
 
+        post_process do
+          logger.verbose('Finished generating table data...')
+        end
       end
     end
   end
