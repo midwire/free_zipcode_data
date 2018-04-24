@@ -2,54 +2,72 @@
 
 Zipcode data is free from the various governments around the world. Yet so many organizations, reputable or not, want to charge money for it.
 
-We originally pulled down all the US census data we could find, parsed it and exported it into .csv files.
+This project is an automated solution for retrieving and collating US and worldwide zipcode data.
 
-In 2017 we began using [GeoNames](http://www.geonames.org) data, which is licensed under Creative Commons:
+## History
 
-We thank [GeoNames](http://www.geonames.org) for sharing, and urge you to [visit their site](http://www.geonames.org) and support their work.
+In 2011, we originally pulled down all the US census data we could find, parsed it and exported it into 3 .csv files. Later, we wrote 3 rake tasks to automate this process.
+
+In 2017 we began using [GeoNames](http://www.geonames.org) data, which is licensed under Creative Commons. We are grateful to [GeoNames](http://www.geonames.org) for sharing, and urge you to [visit their site](http://www.geonames.org) and support their work.
+
+In 2018 we refactored the project and made it into a Ruby gem with a command-line executable for automating this process.
 
 ## What's Included
 
-There are three rake tasks which automatically download the latest zipcode data from the country that you specify. Not all countries are accounted for. Please check [GeoNames](http://download.geonames.org/export/zip/) to see a list of supported country zip files.
+* An executable: `free_zipcode_data` - which automates the process of downloading and process the zipcode data from GeoNames. Not all countries are accounted for. Please check [GeoNames](http://download.geonames.org/export/zip/) to see a list of supported country zip files.
 
-Each zipcode is correlated with estimated or zip-centroid, latitude and longitude coordinates. Where applicable, county/province, state and community are also correlated.
+Each zipcode is correlated with estimated or zip-centroid, latitude and longitude coordinates. Where applicable, country, county/province, state and community are also correlated.
 
 See the GeoNames [readme.txt](http://download.geonames.org/export/zip/readme.txt) file for more information.
 
 ## Usage
 
-```bash
-$ git clone https://github.com/midwire/free_zipcode_data
-$ cd free_zipcode_data
-$ bundle install
-```
-
-Determine the countries you want to use at [GeoNames](http://download.geonames.org/export/zip/), or just use the rake task without any `country` argument to get zipcode data for all countries...
-```bash
-# download will pull down the zipcodes for the specified country
-$ rake data:download[country]
-# rake data:download[US] - For US-only zipcodes
-# rake data:download[GB_full.csv] - All UK data zipcodes:
-# rake data:download - ALL zipcodes
-```
+First, you need to install Ruby and Rubygems. Though that is not a difficult task, it is beyond the scope of this README. A search engine of your choice will help discover how to do this.  Once you have done that:
 
 ```bash
-# build the .csv files
-$ rake data:build[country]
-# rake data:build - ALL countries
+$ gem install free_zipcode_data
 ```
 
+Determine the 2-letter country codes for the countries you want to use at [GeoNames](http://download.geonames.org/export/zip/), or don't specify a country to get all zipcodes for all available countries...
+
+### Command Line Options
+
 ```bash
-# populate_db will automatically download the zips and build the sqlite3 db
-$ rake data:populate_db[country]
-# rake data:populate_db - ALL countries - WARNING: takes a long time
+Options:
+  -w, --work-dir=<s>             REQUIRED: Specify your work/build directory, where the SQLite and .csv files will be built
+  -f, --country=<s>              Specify the country code for processing, or all countries if not specified
+  -g, --generate-files           Generate CSV files: [counties.csv, states.csv, countries.csv, zipcodes.csv]
+  -o, --country-tablename=<s>    Specify the name for the `countries` table (default: countries)
+  -s, --state-tablename=<s>      Specify the name for the `states` table (default: states)
+  -u, --county-tablename=<s>     Specify the name for the `counties` table (default: counties)
+  -z, --zipcode-tablename=<s>    Specify the name for the `zipcodes` table (default: zipcodes)
+  -c, --clobber                  Overwrite existing files
+  -d, --dry-run                  Do not actually move or copy files
+  -v, --verbose                  Be verbose with output
+  -h, --help                     Show this message
+```
+
+### Examples
+
+**Download and process all US zipcodes**:
+
+```bash
+$ free_zipcode_data --work-dir /tmp/work_dir --country US --generate-files
+```
+
+**Download and process zipcodes for all available countries**:
+
+```bash
+$ free_zipcode_data --work-dir /tmp/work_dir --generate-files
 ```
 
 The rake tasks cascade, from the bottom up. So if you run `rake data:populate_db`, it will automatically call `rake data:build` if the .csv files are missing, which will call `rake data:download` if the .zip files are missing.
 
 ## SQLite3 Database
 
-The rake task `rake data:populate_db[country]` will create an SQLite3 database with the following tables, and populate each one:
+The executable will generate an SQLite3 database in the specified directory `--work-dir` but it will not generate the `.csv` files by default. Specify `--generate-files` if you want those as well.
+
+By default the tables will be named as follows. To override the table names see the command line options above.
 
 ```sql
 create table countries (
@@ -79,7 +97,6 @@ create table zipcodes (
   id integer not null primary key,
   code varchar(10) not null,
   state_id integer,
-  county_id integer,
   city varchar(255),
   area_code varchar(3),
   lat float,
@@ -90,41 +107,9 @@ create table zipcodes (
 
 Both `lat` and `lon`, geocodes, are populated for each zipcode record.
 
-## Development
-
-If you want to run the specs or do development work, set `GEM_ENV='development'`
-
 ## Data License
 
 The zipcode data is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by/3.0/">Creative Commons Attribution 3.0 Unported License</a>, carried forward from [GeoNames](http://www.geonames.org).<br />
 <a rel="license" href="http://creativecommons.org/licenses/by/3.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by/3.0/88x31.png" /></a>
 
-## Errata
-
-### 10/28/2017:
-
-* Removed old .csv files
-* Add template files (CODE_OF_CONDUCT.md, CONTRIBUTING.md, ISSUE_TEMPLATE.md, LICENSE.md, PULL_REQUEST_TEMPLATE.md)
-* Use new data provider - [GeoNames](http://www.geonames.org)
-* Test USA
-* Started to test `allCountries.zip` but it takes too long. Let me know if there are any bugs.
-* Create `country_lookup_table.yml` for country code lookups
-
-### 05/04/2011:
-
-* Removed un-assigned zipcodes, which were not valid for today
-* Added a Rakefile and some rake tasks to facilitate building a SQLite relational database for the three tables (states, counties, zipcodes)
-* Zipcodes without an associated county == 0
-* Counties without a zipcode == 1 (PISCATAGUIS, Maine)
-
-### 01/24/2011:
-
-* 670 orphaned zipcodes without an associated county
-* 1 county without any zipcodes (PISCATAGUIS, Maine)
-
-### 01/13/2011:
-
-At last check there were ...
-
-* 897 orphaned zipcodes without an associated county
-* 1 county without any zipcodes (PISCATAGUIS, Maine)
+See [CHANGELOG](CHANGELOG) for more history and errata.
