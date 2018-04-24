@@ -1,7 +1,6 @@
-source 'http://rubygems.org'
+# frozen_string_literal: true
 
-gem 'midwire_common'
-gem 'pry-nav'
-gem 'rake'
-gem 'rubyzip', '~> 1.2.1'
-gem 'sqlite3'
+source 'https://rubygems.org'
+git_source(:github) { |repo| "https://github.com/#{repo}.git" }
+
+gemspec
