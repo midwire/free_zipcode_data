@@ -1,0 +1,12 @@
+*1.0.1* (April 23, 2018)
+
+* Made it a gem with a command line executable bin/free_zipcode_data
+* Use Kiba for ETL
+* Support user switches for various options including custom table names and generating .csv files
+* Use in-memory SQLite database to create the tables, then save it as a file on disk
+* Separate concerns for each table
+* Add a progressbar with ETA
+* Fix a bug when looking up state_id
+* Add a ‘name’ index on states table
+* Add a switch to generate individual .csv files [--generate-files]
+* Add a switch to overwrite [--clobber] downloaded and generated .csv files

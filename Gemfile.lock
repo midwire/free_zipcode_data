@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    free_zipcode_data (1.0.0)
+    free_zipcode_data (1.0.1)
       colored (~> 1.2)
       kiba (~> 2.0)
       ruby-progressbar (~> 1.9)
