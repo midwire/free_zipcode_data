@@ -30,7 +30,7 @@ module FreeZipcodeData
     def write(row)
       return nil unless row[:postal_code]
 
-      state_id = get_state_id(row[:short_state])
+      state_id = get_state_id(row[:short_state], row[:state])
       county_id = get_county_id(row[:county])
       city_name = escape_single_quotes(row[:city])
 
@@ -53,6 +53,8 @@ module FreeZipcodeData
       rescue StandardError => err
         raise "Please file an issue at #{ISSUE_URL}: [#{err}] -> SQL: [#{sql}]"
       end
+
+      update_progress
     end
   end
 end

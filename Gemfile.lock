@@ -1,9 +1,10 @@
 PATH
   remote: .
   specs:
-    free_zipcode_data (1.0.0)
+    free_zipcode_data (1.0.1)
       colored (~> 1.2)
       kiba (~> 2.0)
+      ruby-progressbar (~> 1.9)
       rubyzip (~> 1.2)
       sqlite3 (~> 1.3)
       trollop (~> 2.1)
@@ -51,6 +52,7 @@ GEM
       rainbow (>= 2.2.2, < 4.0)
       ruby-progressbar (~> 1.7)
       unicode-display_width (~> 1.0, >= 1.0.1)
+    ruby-prof (0.17.0)
     ruby-progressbar (1.9.0)
     rubyzip (1.2.1)
     simplecov (0.16.1)
@@ -72,8 +74,9 @@ DEPENDENCIES
   pry-nav (~> 0.2)
   rake (~> 12.0)
   rspec (~> 3.7)
-  rubocop
-  simplecov
+  rubocop (~> 0.55)
+  ruby-prof (~> 0.17)
+  simplecov (~> 0.16)
 
 BUNDLED WITH
    1.16.1

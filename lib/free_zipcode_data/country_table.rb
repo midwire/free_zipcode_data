@@ -39,6 +39,8 @@ module FreeZipcodeData
       rescue SQLite3::ConstraintException
         # Swallow duplicates
       end
+
+      update_progress
     end
   end
 end

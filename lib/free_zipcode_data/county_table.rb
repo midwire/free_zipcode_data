@@ -25,8 +25,9 @@ module FreeZipcodeData
 
     def write(row)
       return nil unless row[:county]
-      state_id = get_state_id(row[:short_state])
-      raise "Could not find state: #{row[:short_state]}" unless state_id
+      state_id = get_state_id(row[:short_state], row[:state])
+      return nil unless state_id
+
       sql = <<-SQL
         INSERT INTO counties (state_id, abbr, name)
         VALUES ('#{state_id}',
@@ -42,6 +43,8 @@ module FreeZipcodeData
       rescue StandardError => err
         raise "Please file an issue at #{ISSUE_URL}: [#{err}] -> SQL: [#{sql}]"
       end
+
+      update_progress
     end
   end
 end

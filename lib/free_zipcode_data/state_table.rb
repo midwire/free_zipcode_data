@@ -20,6 +20,12 @@ module FreeZipcodeData
         ON #{tablename} (abbr, country_id COLLATE NOCASE ASC);
       SQL
       database.execute_batch(ndx)
+
+      ndx = <<-SQL
+        CREATE UNIQUE INDEX "main"."state_name"
+        ON #{tablename} (name COLLATE NOCASE ASC);
+      SQL
+      database.execute_batch(ndx)
     end
 
     def write(row)
@@ -38,6 +44,8 @@ module FreeZipcodeData
       rescue SQLite3::ConstraintException
         # Swallow duplicates
       end
+
+      update_progress
     end
   end
 end

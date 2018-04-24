@@ -6,9 +6,10 @@ require 'kiba'
 
 require_relative '../etl/free_zipcode_data_job'
 
-require 'pry' if ENV.fetch('APP_ENV') == 'development'
+require 'pry' if ENV.fetch('APP_ENV', '') == 'development'
 
 module FreeZipcodeData
+  # rubocop:disable Metrics/ClassLength
   class Runner
     attr_accessor :logger, :options
 
@@ -23,30 +24,38 @@ module FreeZipcodeData
 
     def start
       start_time = Time.now
-      options = FreeZipcodeData::Options.instance
-      options.initialize_hash(collect_args)
+      opt = FreeZipcodeData::Options.instance
+      opt.initialize_hash(collect_args)
+      @options = opt.hash
 
-      logger.info('Starting FreeZipcodeData...'.green)
+      logger.info("Starting FreeZipcodeData v#{VERSION}...".green)
 
-      datasource = DataSource.new(options.hash.country)
+      datasource = DataSource.new(options.country)
       datasource.download
 
-      database = SqliteRam.new(File.join(options.hash.work_dir, 'free_zipcode_data.sqlite3'))
+      db_file = File.join(options.work_dir, 'free_zipcode_data.sqlite3')
+      database = SqliteRam.new(db_file)
+      configure_meta(database.conn, datasource.datafile)
 
       %i[country state county zipcode].each { |t| initialize_table(t, database) }
 
       extract_transform_load(datasource, database)
 
+      logger.info("Saving database to disk '#{db_file}'...")
       database.save_to_disk
 
-      elapsed = Time.now - start_time
-      logger.info("Finished in [#{elapsed}] seconds.".yellow)
+      if options.generate_files
+        logger.info('Generating .csv files...')
+        database.dump_tables(options.work_dir)
+      end
+
+      elapsed = Time.at(Time.now - start_time).utc.strftime('%H:%M:%S')
+      logger.info("Processed #{datasource_line_count} zipcodes in [#{elapsed}].".yellow)
     end
 
     private
 
     def initialize_table(table_sym, database)
-      options = Options.instance.hash
       tablename = options["#{table_sym}_tablename".to_sym]
       logger.verbose("Initializing #{table_sym} table: '#{tablename}'...")
       klass = instance_eval("#{titleize(table_sym)}Table", __FILE__, __LINE__)
@@ -57,12 +66,37 @@ module FreeZipcodeData
       table.build
     end
 
+    def datasource_line_count(filename)
+      @datasource_line_count ||= begin
+        count = File.foreach(filename).inject(0) { |c, _line| c + 1 }
+        logger.verbose("Processing #{count} zipcodes in '#{filename}'...")
+        count
+      end
+    end
+
+    def configure_meta(database, datasource)
+      schema = <<-SQL
+        create table meta (
+          id integer not null primary key,
+          name varchar(255),
+          value varchar(255)
+        )
+      SQL
+      database.execute_batch(schema)
+
+      sql = <<-SQL
+        INSERT INTO meta (name, value)
+        VALUES ('line_count', #{datasource_line_count(datasource)})
+      SQL
+      database.execute(sql)
+    end
+
     def extract_transform_load(datasource, database)
       job = ETL::FreeZipcodeDataJob.setup(
         datasource.datafile,
         database.conn,
         logger,
-        FreeZipcodeData::Options.instance.hash
+        options
       )
       Kiba.run(job)
     end
@@ -72,14 +106,19 @@ module FreeZipcodeData
     def collect_args
       Trollop.options do
         opt(
-          :country,
-          'Specify the country code for processing, or all countries if not specified',
-          type: :string, required: false, short: '-g'
+          :work_dir,
+          'REQUIRED: Specify your work/build directory, where the SQLite and .csv files will be built',
+          type: :string, required: true, short: '-w'
         )
         opt(
-          :work_dir,
-          'Specify your work/build directory, where the SQLite and .csv files will be built',
-          type: :string, required: true, short: '-w'
+          :country,
+          'Specify the country code for processing, or all countries if not specified',
+          type: :string, required: false, short: '-f'
+        )
+        opt(
+          :generate_files,
+          'Generate CSV files: [counties.csv, states.csv, countries.csv, zipcodes.csv]',
+          type: :boolean, required: false, short: '-g', default: false
         )
         opt(
           :country_tablename,
@@ -129,4 +168,5 @@ module FreeZipcodeData
       ret
     end
   end
+  # rubocop:enable Metrics/ClassLength
 end

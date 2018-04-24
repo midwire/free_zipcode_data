@@ -1,4 +1,4 @@
-## How to contribute to jsonapi_rspec
+## How to contribute to free_zipcode_data
 
 #### **Did you find a bug?**
 
