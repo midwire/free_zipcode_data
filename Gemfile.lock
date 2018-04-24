@@ -74,9 +74,9 @@ DEPENDENCIES
   pry-nav (~> 0.2)
   rake (~> 12.0)
   rspec (~> 3.7)
-  rubocop
-  ruby-prof
-  simplecov
+  rubocop (~> 0.55)
+  ruby-prof (~> 0.17)
+  simplecov (~> 0.16)
 
 BUNDLED WITH
    1.16.1
