@@ -2,6 +2,8 @@
 
 Zipcode data is free from the various governments around the world. Yet so many organizations, reputable or not, want to charge money for it.
 
+This project is an automated solution for retrieving and collating US and worldwide zipcode data.
+
 ## History
 
 In 2011, we originally pulled down all the US census data we could find, parsed it and exported it into 3 .csv files. Later, we wrote 3 rake tasks to automate this process.
@@ -110,5 +112,4 @@ Both `lat` and `lon`, geocodes, are populated for each zipcode record.
 The zipcode data is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by/3.0/">Creative Commons Attribution 3.0 Unported License</a>, carried forward from [GeoNames](http://www.geonames.org).<br />
 <a rel="license" href="http://creativecommons.org/licenses/by/3.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by/3.0/88x31.png" /></a>
 
-
-See [CHANGELOG](CHANGELOG) for history and errata.
+See [CHANGELOG](CHANGELOG) for more history and errata.
