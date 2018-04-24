@@ -10,3 +10,33 @@
 * Add a ‘name’ index on states table
 * Add a switch to generate individual .csv files [--generate-files]
 * Add a switch to overwrite [--clobber] downloaded and generated .csv files
+
+### Previous History
+
+### 10/28/2017:
+
+* Removed old .csv files
+* Add template files (CODE_OF_CONDUCT.md, CONTRIBUTING.md, ISSUE_TEMPLATE.md, LICENSE.md, PULL_REQUEST_TEMPLATE.md)
+* Use new data provider - [GeoNames](http://www.geonames.org)
+* Test USA
+* Started to test `allCountries.zip` but it takes too long. Let me know if there are any bugs.
+* Create `country_lookup_table.yml` for country code lookups
+
+### 05/04/2011:
+
+* Removed un-assigned zipcodes, which were not valid for today
+* Added a Rakefile and some rake tasks to facilitate building a SQLite relational database for the three tables (states, counties, zipcodes)
+* Zipcodes without an associated county == 0
+* Counties without a zipcode == 1 (PISCATAGUIS, Maine)
+
+### 01/24/2011:
+
+* 670 orphaned zipcodes without an associated county
+* 1 county without any zipcodes (PISCATAGUIS, Maine)
+
+### 01/13/2011:
+
+At last check there were ...
+
+* 897 orphaned zipcodes without an associated county
+* 1 county without any zipcodes (PISCATAGUIS, Maine)
