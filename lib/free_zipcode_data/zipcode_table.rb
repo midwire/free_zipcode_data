@@ -10,7 +10,6 @@ module FreeZipcodeData
           id integer not null primary key,
           code varchar(10) not null,
           state_id integer,
-          county_id integer,
           city varchar(255),
           area_code varchar(3),
           lat float,
