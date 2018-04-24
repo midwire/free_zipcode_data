@@ -31,14 +31,12 @@ module FreeZipcodeData
       return nil unless row[:postal_code]
 
       state_id = get_state_id(row[:short_state], row[:state])
-      county_id = get_county_id(row[:county])
       city_name = escape_single_quotes(row[:city])
 
       sql = <<-SQL
         INSERT INTO zipcodes (code, state_id, city, lat, lon, accuracy)
         VALUES ('#{row[:postal_code]}',
           '#{state_id}',
-          '#{county_id}',
           '#{city_name}',
           '#{row[:latitude]}',
           '#{row[:longitude]}',
