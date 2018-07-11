@@ -50,7 +50,7 @@ module FreeZipcodeData
       end
 
       elapsed = Time.at(Time.now - start_time).utc.strftime('%H:%M:%S')
-      logger.info("Processed #{datasource_line_count} zipcodes in [#{elapsed}].".yellow)
+      logger.info("Processed #{datasource_line_count(datasource.datafile)} zipcodes in [#{elapsed}].".yellow)
     end
 
     private
