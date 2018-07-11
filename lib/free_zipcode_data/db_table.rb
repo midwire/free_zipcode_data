@@ -24,7 +24,11 @@ module FreeZipcodeData
     private
 
     def country_lookup_table
-      @country_lookup_table ||= YAML.load_file('country_lookup_table.yml')
+      @country_lookup_table ||=
+        begin
+          path = File.expand_path('../../country_lookup_table.yml', __dir__)
+          YAML.load_file(path)
+        end
     end
 
     def select_first(sql)
