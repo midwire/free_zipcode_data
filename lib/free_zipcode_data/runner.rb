@@ -35,7 +35,9 @@ module FreeZipcodeData
 
       db_file = File.join(options.work_dir, 'free_zipcode_data.sqlite3')
       database = SqliteRam.new(db_file)
-      configure_meta(database.conn, datasource.datafile)
+
+      line_count = datasource_line_count(datasource.datafile)
+      configure_meta(database.conn, line_count)
 
       %i[country state county zipcode].each { |t| initialize_table(t, database) }
 
@@ -50,7 +52,7 @@ module FreeZipcodeData
       end
 
       elapsed = Time.at(Time.now - start_time).utc.strftime('%H:%M:%S')
-      logger.info("Processed #{datasource_line_count} zipcodes in [#{elapsed}].".yellow)
+      logger.info("Processed #{line_count} zipcodes in [#{elapsed}].".yellow)
     end
 
     private
@@ -67,14 +69,12 @@ module FreeZipcodeData
     end
 
     def datasource_line_count(filename)
-      @datasource_line_count ||= begin
-        count = File.foreach(filename).inject(0) { |c, _line| c + 1 }
-        logger.verbose("Processing #{count} zipcodes in '#{filename}'...")
-        count
-      end
+      count = File.foreach(filename).inject(0) { |c, _line| c + 1 }
+      logger.verbose("Processing #{count} zipcodes in '#{filename}'...")
+      count
     end
 
-    def configure_meta(database, datasource)
+    def configure_meta(database, line_count)
       schema = <<-SQL
         create table meta (
           id integer not null primary key,
@@ -86,7 +86,7 @@ module FreeZipcodeData
 
       sql = <<-SQL
         INSERT INTO meta (name, value)
-        VALUES ('line_count', #{datasource_line_count(datasource)})
+        VALUES ('line_count', #{line_count})
       SQL
       database.execute(sql)
     end
