@@ -1,3 +1,9 @@
+*1.0.2* (January 11, 2019)
+
+* Upgraded RubyZip gem version to address the reported vulnerability
+* Upgrade from Trollop (now deprecated) to Optimist
+* Fix issue #12 (No such file or directory @ rb_sysopen - country_lookup_table.yml) - thanks @srghma
+
 *1.0.1* (April 23, 2018)
 
 * Made it a gem with a command line executable bin/free_zipcode_data
