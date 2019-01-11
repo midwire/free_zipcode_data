@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 require 'colored'
-require 'trollop'
+require 'optimist'
 require 'kiba'
 
 require_relative '../etl/free_zipcode_data_job'
@@ -104,7 +104,7 @@ module FreeZipcodeData
     # rubocop:disable Metrics/BlockLength
     # rubocop:disable Metrics/MethodLength
     def collect_args
-      Trollop.options do
+      Optimist.options do
         opt(
           :work_dir,
           'REQUIRED: Specify your work/build directory, where the SQLite and .csv files will be built',

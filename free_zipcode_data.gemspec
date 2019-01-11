@@ -35,9 +35,9 @@ Gem::Specification.new do |spec|
 
   spec.add_runtime_dependency 'colored', '~> 1.2'
   spec.add_runtime_dependency 'kiba', '~> 2.0'
+  spec.add_runtime_dependency 'optimist', '~> 3.0'
   spec.add_runtime_dependency 'ruby-progressbar', '~> 1.9'
-  spec.add_runtime_dependency 'rubyzip', '~> 1.2'
+  spec.add_runtime_dependency 'rubyzip', '>= 1.2.2'
   spec.add_runtime_dependency 'sqlite3', '~> 1.3'
-  spec.add_runtime_dependency 'trollop', '~> 2.1'
 end
 # rubocop:enable Metrics/BlockLength
