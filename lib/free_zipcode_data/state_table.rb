@@ -29,6 +29,10 @@ module FreeZipcodeData
     end
 
     def write(row)
+      if(row[:short_state] == nil || row[:short_state] == '')
+        row[:short_state] = row[:country]
+        row[:state] = country_lookup_table[row[:country]][:name]
+      end
       return nil unless row[:short_state]
       row[:state] = 'Marshall Islands' if row[:short_state] == 'MH' && row[:state].nil?
       country_id = get_country_id(row[:country])
