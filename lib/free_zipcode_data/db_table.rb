@@ -43,10 +43,22 @@ module FreeZipcodeData
       select_first(sql)
     end
 
-    def get_state_id(state_abbr, state_name)
-      sql = "SELECT id FROM states
-        WHERE abbr = '#{state_abbr}' OR name = '#{escape_single_quotes(state_name)}'"
-      select_first(sql)
+    def get_state_id(country,state_abbr, state_name)
+      sql = "SELECT s.id FROM states s inner join countries c on s.country_id == c.id 
+      WHERE s.abbr = '#{state_abbr}' and  s.name = '#{escape_single_quotes(state_name)}' 
+      and c.alpha2 == '#{escape_single_quotes(country)}'"
+      res = select_first(sql)
+      if(res == nil)
+        sql = "SELECT s.id FROM states s inner join countries c on s.country_id == c.id 
+        WHERE s.abbr = '#{state_abbr}' and c.alpha2 == '#{escape_single_quotes(country)}'"
+        res = select_first(sql)
+      end
+      if(res == nil)
+          sql = "SELECT s.id FROM states s inner join countries c on s.country_id == c.id 
+          WHERE s.name = '#{state_name}' and c.alpha2 == '#{escape_single_quotes(country)}'"
+          res = select_first(sql)
+      end
+      return res
     end
 
     def get_county_id(county)
