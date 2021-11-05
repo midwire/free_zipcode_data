@@ -65,9 +65,10 @@ namespace :version do
   end
 
   def module_name
-    if PROJECT_NAME =~ /-/
+    case PROJECT_NAME
+    when /-/
       PROJECT_NAME.split('-').map(&:capitalize).join('::')
-    elsif PROJECT_NAME =~ /_/
+    when /_/
       PROJECT_NAME.split('_').map(&:capitalize).join
     else
       PROJECT_NAME.capitalize
@@ -100,8 +101,9 @@ namespace :version do
   def update_readme_version_strings
     version_string = read_version.join('.')
     readme = open('README.md').read
-    regex = /^\*\*Version: [0-9\.]+\*\*$/i
+    regex = /^\*\*Version: [0-9.]+\*\*$/i
     return nil unless readme =~ regex
+
     File.open('README.md', 'w') do |f|
       f.write(readme.gsub(regex, "**Version: #{version_string}**"))
     end
@@ -109,6 +111,7 @@ namespace :version do
 
   def changelog
     return @changelog_path if @changelog_path
+
     @changelog_path = File.join(PROJECT_ROOT, 'CHANGELOG')
     FileUtils.touch(@changelog_path)
     @changelog_path
@@ -158,9 +161,11 @@ namespace :version do
 
   def check_branch_and_warn
     return true unless current_branch == 'master'
+
     puts(branch_warning_message)
     while (line = $stdin.gets.chomp)
       return true if line =~ /[yY]/
+
       puts 'Aborting version bump.'
       return false
     end

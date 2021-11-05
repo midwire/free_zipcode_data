@@ -25,6 +25,7 @@ module FreeZipcodeData
 
     def write(row)
       return nil unless row[:county]
+
       state_id = get_state_id(row[:short_state], row[:state])
       return nil unless state_id
 

@@ -1,5 +1,5 @@
 AllCops:
-  TargetRubyVersion: 2.3
+  TargetRubyVersion: 2.7
 
   # Include gemspec and Rakefile
   Include:
@@ -19,8 +19,13 @@ AllCops:
     - 'stubs/**/*'
     - 'spec/support/shared_contexts/*'
 
+  NewCops: enable
+
+########################################
+# Style Cops
+
 # Checks formatting of special comments
-CommentAnnotation:
+Style/CommentAnnotation:
   Keywords:
     - TODO
     - FIXME
@@ -28,25 +33,13 @@ CommentAnnotation:
     - HACK
     - REVIEW
 
-########################################
-# Style Cops
-
 Style/ClassVars:
   Enabled: false
 
 Style/Documentation:
   Enabled: false
 
-Style/FileName:
-  Enabled: false
-
-Style/AlignParameters:
-  EnforcedStyle: with_fixed_indentation
-
 Style/RegexpLiteral:
-  Enabled: false
-
-Style/EmptyLinesAroundBlockBody:
   Enabled: false
 
 Style/RaiseArgs:
@@ -61,17 +54,17 @@ Style/PerlBackrefs:
 ########################################
 # Lint Cops
 
-Lint/Eval:
+Lint/SuppressedException:
   Enabled: false
 
-Lint/HandleExceptions:
+########################################
+# Security Cops
+
+Security/Eval:
   Enabled: false
 
 ########################################
 # Metrics Cops
-
-Metrics/LineLength:
-  Max: 110
 
 Metrics/MethodLength:
   CountComments: false # count full line comments?
@@ -83,6 +76,17 @@ Metrics/ClassLength:
 Metrics/AbcSize:
   Enabled: false
 
-# rubocop:disable Metrics/AbcSize
-# rubocop:disable Metrics/MethodLength
-# rubocop:disable Metrics/BlockLength
+########################################
+# Metrics Cops
+
+Naming/FileName:
+  Enabled: false
+
+########################################
+# Layout Cops
+
+Layout/EmptyLinesAroundBlockBody:
+  Enabled: false
+
+Layout/LineLength:
+  Max: 110

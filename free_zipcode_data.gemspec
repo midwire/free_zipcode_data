@@ -1,11 +1,9 @@
 # frozen_string_literal: true
-# coding: utf-8
 
-lib = File.expand_path('../lib', __FILE__)
+lib = File.expand_path('lib', __dir__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 require 'free_zipcode_data/version'
 
-# rubocop:disable Metrics/BlockLength
 Gem::Specification.new do |spec|
   spec.name          = 'free_zipcode_data'
   spec.version       = FreeZipcodeData::VERSION
@@ -19,17 +17,17 @@ Gem::Specification.new do |spec|
   spec.homepage      = 'https://github.com/midwire/free_zipcode_data'
   spec.license       = 'MIT'
 
-  spec.required_ruby_version = '>= 2.3.0'
+  spec.required_ruby_version = Gem::Requirement.new(">= #{Bundler.root.join('.ruby-version').read.strip}")
   spec.files         = `git ls-files -z`.split("\x0")
   spec.executables   = spec.files.grep(%r{^bin/}) { |f| File.basename(f) }
   spec.test_files    = spec.files.grep(%r{^(test|spec|features)/})
   spec.require_paths = ['lib']
 
-  spec.add_development_dependency 'bundler', '~> 1.16'
+  spec.add_development_dependency 'bundler'
   spec.add_development_dependency 'pry-nav', '~> 0.2'
   spec.add_development_dependency 'rake', '~> 13.0'
   spec.add_development_dependency 'rspec', '~> 3.7'
-  spec.add_development_dependency 'rubocop', '~> 0.55'
+  spec.add_development_dependency 'rubocop'
   spec.add_development_dependency 'ruby-prof', '~> 0.17'
   spec.add_development_dependency 'simplecov', '~> 0.16'
 
@@ -40,4 +38,3 @@ Gem::Specification.new do |spec|
   spec.add_runtime_dependency 'rubyzip', '>= 1.2.2'
   spec.add_runtime_dependency 'sqlite3', '~> 1.3'
 end
-# rubocop:enable Metrics/BlockLength

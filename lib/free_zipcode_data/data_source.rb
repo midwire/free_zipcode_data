@@ -18,17 +18,16 @@ module FreeZipcodeData
 
     def download
       return nil if !options.clobber && File.exist?(zipfile_path)
+
       FileUtils.mkdir_p(options.work_dir)
       @logger.info("Downloading: #{zipfile} from GeoNames...")
-      open(zipfile_path, 'wb') do |file|
-        file << open("#{BASE_URL}/#{zipfile}").read
+      File.open(zipfile_path, 'wb') do |file|
+        file << URI.parse("#{BASE_URL}/#{zipfile}").open(&:read)
       end
     end
 
     def datafile
-      @datafile ||= begin
-        datafile_with_headers
-      end
+      @datafile ||= datafile_with_headers
     end
 
     private
@@ -51,6 +50,7 @@ module FreeZipcodeData
         Zip::File.open(zipfile_path) do |zip|
           zip.each do |entry|
             next if entry.name =~ /readme/i
+
             country_file = File.join(options.work_dir, entry.name)
             if File.exist?(country_file)
               if options[:clobber]

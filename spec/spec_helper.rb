@@ -4,7 +4,7 @@ ENV['APP_ENV'] = 'test'
 
 require 'pry'
 
-Dir[root.join('spec/support/**/*.rb')].each { |f| require f }
+Dir[Pathname.new(File.dirname(__FILE__)).parent.join('spec/support/**/*.rb')].sort.each { |f| require f }
 
 RSpec.configure do |config|
   config.expect_with :rspec do |expectations|

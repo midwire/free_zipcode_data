@@ -2,6 +2,7 @@
 
 require 'readline'
 
+require 'bundler/setup'
 require 'free_zipcode_data/version'
 
 module FreeZipcodeData
@@ -16,6 +17,7 @@ module FreeZipcodeData
   #:nocov:
   def self.config_file(filename = '.free_zipcode_data.yml')
     return root.join('spec', 'fixtures', filename) if current_environment == 'test'
+
     home = ENV.fetch('HOME')
     file = ENV.fetch('FZD_CONFIG_FILE', File.join(home, '.free_zipcode_data.yml'))
     FileUtils.touch(file)
