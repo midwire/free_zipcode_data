@@ -5,6 +5,7 @@ $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 require 'free_zipcode_data/version'
 
 Gem::Specification.new do |spec|
+  spec.metadata = { 'rubygems_mfa_required' => 'true' }
   spec.name          = 'free_zipcode_data'
   spec.version       = FreeZipcodeData::VERSION
   spec.authors       = ['Chris Blackburn', 'Chris McKnight']
@@ -20,7 +21,6 @@ Gem::Specification.new do |spec|
   spec.required_ruby_version = Gem::Requirement.new(">= #{Bundler.root.join('.ruby-version').read.strip}")
   spec.files         = `git ls-files -z`.split("\x0")
   spec.executables   = spec.files.grep(%r{^bin/}) { |f| File.basename(f) }
-  spec.test_files    = spec.files.grep(%r{^(test|spec|features)/})
   spec.require_paths = ['lib']
 
   spec.add_development_dependency 'bundler'
