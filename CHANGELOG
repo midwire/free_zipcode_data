@@ -1,3 +1,7 @@
+*1.0.3* (August 25, 2024)
+
+* Version bump for rexml CVE
+
 *1.0.2* (January 11, 2019)
 
 * Upgraded RubyZip gem version to address the reported vulnerability
