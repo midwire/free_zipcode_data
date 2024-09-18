@@ -15,20 +15,20 @@ module ETL
         source CsvSource, filename: country_file, quote_char: '"', delimeter: ','
 
         destination FreeZipcodeData::CountryTable,
-          database: database,
-          tablename: options[:country_tablename]
+                    database: database,
+                    tablename: options[:country_tablename]
 
         destination FreeZipcodeData::StateTable,
-          database: database,
-          tablename: options[:state_tablename]
+                    database: database,
+                    tablename: options[:state_tablename]
 
         destination FreeZipcodeData::CountyTable,
-          database: database,
-          tablename: options[:county_tablename]
+                    database: database,
+                    tablename: options[:county_tablename]
 
         destination FreeZipcodeData::ZipcodeTable,
-          database: database,
-          tablename: options[:zipcode_tablename]
+                    database: database,
+                    tablename: options[:zipcode_tablename]
 
         post_process do
           logger.verbose('Finished generating table data...')

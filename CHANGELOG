@@ -1,3 +1,7 @@
+*1.0.4* (September 18, 2024)
+
+* Upgrade Kiba Gem - Now works with Ruby 3.x
+
 *1.0.3* (August 25, 2024)
 
 * Version bump for rexml CVE

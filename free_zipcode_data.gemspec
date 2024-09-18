@@ -32,7 +32,7 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'simplecov', '~> 0.16'
 
   spec.add_runtime_dependency 'colored', '~> 1.2'
-  spec.add_runtime_dependency 'kiba', '~> 2.0'
+  spec.add_runtime_dependency 'kiba', '~> 4.0'
   spec.add_runtime_dependency 'optimist', '~> 3.0'
   spec.add_runtime_dependency 'ruby-progressbar', '~> 1.9'
   spec.add_runtime_dependency 'rubyzip', '>= 1.2.2'
