@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    free_zipcode_data (1.0.4)
+    free_zipcode_data (1.0.5)
       colored (~> 1.2)
       kiba (~> 4.0)
       optimist (~> 3.0)

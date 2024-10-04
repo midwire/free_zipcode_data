@@ -77,8 +77,9 @@ module FreeZipcodeData
       end
       @logger.verbose("Preparing: #{filename} for processing...")
       CSV.open(filename, 'w') do |outfile|
-        outfile << %w[COUNTRY POSTAL_CODE CITY STATE SHORT_STATE COUNTY SHORT_COUNTY COMMUNITY SHORT_COMMUNITY LATITUDE LONGITUDE ACCURACY]
-        CSV.foreach(unzipped_datafile, headers: false, col_sep: "\t", quote_char: '|') do |row|
+        outfile << %w[COUNTRY POSTAL_CODE CITY STATE SHORT_STATE COUNTY SHORT_COUNTY COMMUNITY
+                      SHORT_COMMUNITY LATITUDE LONGITUDE ACCURACY]
+        CSV.foreach(unzipped_datafile, headers: false, col_sep: "\t", quote_char: '^') do |row|
           outfile << row
         end
       end
