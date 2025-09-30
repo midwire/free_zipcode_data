@@ -1,3 +1,7 @@
+*1.0.6* (September 30, 2025)
+
+* Bump rexml from 3.3.9 to 3.4.2
+
 *1.0.5* (October 04, 2024)
 
 * Fix a data parsing error where foreign countries use the pipe symbol in city names
