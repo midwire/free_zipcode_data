@@ -30,6 +30,7 @@ module FreeZipcodeData
 
     def write(row)
       return nil unless row[:short_state]
+
       row[:state] = 'Marshall Islands' if row[:short_state] == 'MH' && row[:state].nil?
       country_id = get_country_id(row[:country])
       sql = <<-SQL
@@ -43,6 +44,8 @@ module FreeZipcodeData
         database.execute(sql)
       rescue SQLite3::ConstraintException
         # Swallow duplicates
+      rescue StandardError => e
+        raise "Please file an issue at #{ISSUE_URL}: [#{e}] -> SQL: [#{sql}]"
       end
 
       update_progress

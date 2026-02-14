@@ -14,10 +14,10 @@ class CsvSource
 
   def each
     CSV.open(filename,
-      col_sep: delimeter,
-      headers: headers,
-      header_converters: :symbol,
-      quote_char: quote_char) do |csv|
+             col_sep: delimeter,
+             headers: headers,
+             header_converters: :symbol,
+             quote_char: quote_char) do |csv|
       csv.each do |row|
         yield(row.to_hash)
       end

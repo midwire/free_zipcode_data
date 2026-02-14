@@ -58,9 +58,9 @@ module FreeZipcodeData
     private
 
     def initialize_table(table_sym, database)
-      tablename = options["#{table_sym}_tablename".to_sym]
+      tablename = options[:"#{table_sym}_tablename"]
       logger.verbose("Initializing #{table_sym} table: '#{tablename}'...")
-      klass = instance_eval("#{titleize(table_sym)}Table", __FILE__, __LINE__)
+      klass = FreeZipcodeData.const_get(:"#{titleize(table_sym)}Table")
       table = klass.new(
         database: database.conn,
         tablename: tablename

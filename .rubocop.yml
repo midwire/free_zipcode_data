@@ -1,23 +1,24 @@
 AllCops:
-  TargetRubyVersion: 2.7
+  TargetRubyVersion: 3.4
 
   # Include gemspec and Rakefile
   Include:
-    - '**/*.gemspec'
-    - '**/*.podspec'
-    - '**/*.jbuilder'
-    - '**/*.rake'
-    - '**/Gemfile'
-    - '**/Rakefile'
-    - '**/Capfile'
-    - '**/Guardfile'
-    - '**/Podfile'
-    - '**/Thorfile'
-    - '**/Vagrantfile'
+    - "**/*.rb"
+    - "**/*.gemspec"
+    - "**/*.podspec"
+    - "**/*.jbuilder"
+    - "**/*.rake"
+    - "**/Gemfile"
+    - "**/Rakefile"
+    - "**/Capfile"
+    - "**/Guardfile"
+    - "**/Podfile"
+    - "**/Thorfile"
+    - "**/Vagrantfile"
   Exclude:
-    - 'vendor/**/*'
-    - 'stubs/**/*'
-    - 'spec/support/shared_contexts/*'
+    - "vendor/**/*"
+    - "stubs/**/*"
+    - "spec/support/shared_contexts/*"
 
   NewCops: enable
 
@@ -51,6 +52,10 @@ Style/DoubleNegation:
 Style/PerlBackrefs:
   Enabled: false
 
+Style/OpenStructUse:
+  Exclude:
+    - "spec/**/*"
+
 ########################################
 # Lint Cops
 
@@ -66,6 +71,10 @@ Security/Eval:
 ########################################
 # Metrics Cops
 
+Metrics/BlockLength:
+  Exclude:
+    - "spec/**/*"
+
 Metrics/MethodLength:
   CountComments: false # count full line comments?
   Max: 30
@@ -77,7 +86,7 @@ Metrics/AbcSize:
   Enabled: false
 
 ########################################
-# Metrics Cops
+# Naming Cops
 
 Naming/FileName:
   Enabled: false
