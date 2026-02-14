@@ -20,7 +20,7 @@ RSpec.describe ETL::FreeZipcodeDataJob do
 
   before do
     FreeZipcodeData::Options.instance.initialize_hash(options)
-    logger.log_provider = ::Logger.new(string_io)
+    logger.log_provider = Logger.new(string_io)
   end
 
   describe '.setup' do
@@ -72,7 +72,7 @@ RSpec.describe ETL::FreeZipcodeDataJob do
         JOIN states s ON CAST(z.state_id AS INTEGER) = s.id
         WHERE z.code = '60601'
       SQL
-      expect(rows[0]).to eq(['60601', 'IL'])
+      expect(rows[0]).to eq(%w[60601 IL])
     end
 
     it 'links states to countries' do
@@ -82,7 +82,7 @@ RSpec.describe ETL::FreeZipcodeDataJob do
         JOIN countries c ON s.country_id = c.id
         WHERE s.abbr = 'NY'
       SQL
-      expect(rows[0]).to eq(['NY', 'US'])
+      expect(rows[0]).to eq(%w[NY US])
     end
 
     it 'stores geocode data for zipcodes' do

@@ -20,6 +20,8 @@ RSpec.describe CsvSource do
     end
   end
 
+  # CsvSource implements only #each (Kiba source protocol), not Enumerable
+  # rubocop:disable Style/MapIntoArray
   describe '#each' do
     it 'yields each row as a hash with symbolized keys' do
       source = described_class.new(filename: fixture_csv, delimeter: ',', quote_char: '"')
@@ -51,4 +53,5 @@ RSpec.describe CsvSource do
       expect(countries.uniq.sort).to eq(%w[CA GB US])
     end
   end
+  # rubocop:enable Style/MapIntoArray
 end

@@ -64,9 +64,9 @@ RSpec.describe FreeZipcodeData::DbTable do
     end
 
     it 'raises with issue URL on SQL error' do
-      expect {
+      expect do
         table.send(:select_first, 'SELECT * FROM nonexistent_table')
-      }.to raise_error(/Please file an issue/)
+      end.to raise_error(/Please file an issue/)
     end
   end
 

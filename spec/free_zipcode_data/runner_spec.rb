@@ -29,7 +29,7 @@ RSpec.describe FreeZipcodeData::Runner do
 
     before do
       # Suppress logger output
-      runner.logger.log_provider = ::Logger.new(string_io)
+      runner.logger.log_provider = Logger.new(string_io)
 
       # Copy fixture zip and pre-extracted text into work_dir
       fixture_dir = File.join(FreeZipcodeData.root, 'spec', 'fixtures')
@@ -39,10 +39,10 @@ RSpec.describe FreeZipcodeData::Runner do
 
       # Stub ARGV to provide required CLI args
       stub_const('ARGV', [
-        '--work-dir', work_dir,
-        '--country', 'US',
-        '--generate-files'
-      ])
+                   '--work-dir', work_dir,
+                   '--country', 'US',
+                   '--generate-files'
+                 ])
     end
 
     it 'creates an SQLite database in the work directory' do
@@ -76,9 +76,9 @@ RSpec.describe FreeZipcodeData::Runner do
     context 'without --generate-files' do
       before do
         stub_const('ARGV', [
-          '--work-dir', work_dir,
-          '--country', 'US'
-        ])
+                     '--work-dir', work_dir,
+                     '--country', 'US'
+                   ])
       end
 
       it 'creates the database but not CSV files' do

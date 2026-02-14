@@ -13,27 +13,23 @@ module FreeZipcodeData
       @log_provider = provider
     end
 
-    def log_exception(e, data = {})
-      msg = "EXCEPTION : #{e.class.name} : #{e.message}"
+    def log_exception(error, data = {})
+      msg = "EXCEPTION : #{error.class.name} : #{error.message}"
       msg += "\n data : #{data.inspect}" if data && !data.empty?
-      msg += "\n  #{e.backtrace[0, 6].join("\n  ")}"
+      msg += "\n  #{error.backtrace[0, 6].join("\n  ")}"
       log_provider.error(msg)
     end
 
-    def method_missing(meth, *args, &block)
+    def method_missing(meth, *, &)
       if log_provider.respond_to?(meth)
-        log_provider.send(meth, *args, &block)
+        log_provider.send(meth, *, &)
       else
         super
       end
     end
 
-    def respond_to?(meth, include_private = false)
-      if log_provider.respond_to?(meth)
-        true
-      else
-        super
-      end
+    def respond_to_missing?(meth, include_private = false)
+      log_provider.respond_to?(meth) || super
     end
 
     def verbose(msg)
@@ -43,7 +39,7 @@ module FreeZipcodeData
     private
 
     def default_logger
-      logger = ::Logger.new(STDOUT)
+      logger = ::Logger.new($stdout)
       logger.formatter = proc do |_, _, _, msg|
         "#{msg}\n"
       end

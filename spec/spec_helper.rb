@@ -12,7 +12,7 @@ require 'ostruct'
 require 'free_zipcode_data'
 require 'free_zipcode_data/runner'
 
-Dir[Pathname.new(File.dirname(__FILE__)).parent.join('spec/support/**/*.rb')].sort.each { |f| require f }
+Dir[Pathname.new(File.dirname(__FILE__)).parent.join('spec/support/**/*.rb')].each { |f| require f }
 
 RSpec.configure do |config|
   config.include DatabaseHelpers
@@ -20,7 +20,7 @@ RSpec.configure do |config|
   # Silence progress bar output during tests
   config.before do
     allow(ProgressBar).to receive(:create).and_wrap_original do |method, **args|
-      method.call(**args.merge(output: StringIO.new))
+      method.call(**args, output: StringIO.new)
     end
   end
 

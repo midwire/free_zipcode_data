@@ -41,8 +41,8 @@ module FreeZipcodeData
         database.execute(sql)
       rescue SQLite3::ConstraintException
         # swallow duplicates
-      rescue StandardError => err
-        raise "Please file an issue at #{ISSUE_URL}: [#{err}] -> SQL: [#{sql}]"
+      rescue StandardError => e
+        raise "Please file an issue at #{ISSUE_URL}: [#{e}] -> SQL: [#{sql}]"
       end
 
       update_progress

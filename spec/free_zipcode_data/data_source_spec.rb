@@ -57,7 +57,8 @@ RSpec.describe FreeZipcodeData::DataSource do
 
     it 'redownloads if clobber is true' do
       FileUtils.touch(File.join(work_dir, 'US.zip'))
-      options_instance.initialize_hash(OpenStruct.new(work_dir: work_dir, clobber: true, country: 'US', verbose: false))
+      options_instance.initialize_hash(OpenStruct.new(work_dir: work_dir, clobber: true, country: 'US',
+                                                      verbose: false))
 
       uri_object = instance_double(URI::HTTP)
       allow(URI).to receive(:parse).and_return(uri_object)

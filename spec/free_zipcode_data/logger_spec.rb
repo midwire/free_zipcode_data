@@ -3,7 +3,7 @@
 RSpec.describe FreeZipcodeData::Logger do
   let(:logger) { described_class.instance }
   let(:string_io) { StringIO.new }
-  let(:test_provider) { ::Logger.new(string_io) }
+  let(:test_provider) { Logger.new(string_io) }
 
   before do
     logger.log_provider = test_provider
@@ -11,7 +11,7 @@ RSpec.describe FreeZipcodeData::Logger do
 
   after do
     # Restore default logger
-    logger.log_provider = ::Logger.new($stdout)
+    logger.log_provider = Logger.new($stdout)
   end
 
   describe '#info' do

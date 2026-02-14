@@ -47,7 +47,7 @@ RSpec.describe FreeZipcodeData::ZipcodeTable do
       table.write(row)
       rows = db.execute('SELECT code, city FROM zipcodes')
       expect(rows.length).to eq(1)
-      expect(rows[0]).to eq(['60601', 'Chicago'])
+      expect(rows[0]).to eq(%w[60601 Chicago])
     end
 
     it 'stores latitude and longitude' do

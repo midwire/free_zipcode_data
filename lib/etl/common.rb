@@ -16,6 +16,7 @@ end
 def limit(count)
   count = Integer(count || -1)
   return if count == -1
+
   transform do |row|
     @counter ||= 0
     @counter += 1

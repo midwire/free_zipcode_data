@@ -30,6 +30,7 @@ module FreeZipcodeData
 
     def write(row)
       return nil unless row[:short_state]
+
       row[:state] = 'Marshall Islands' if row[:short_state] == 'MH' && row[:state].nil?
       country_id = get_country_id(row[:country])
       sql = <<-SQL

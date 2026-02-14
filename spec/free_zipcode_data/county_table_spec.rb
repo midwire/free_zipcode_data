@@ -35,7 +35,7 @@ RSpec.describe FreeZipcodeData::CountyTable do
       table.write({ county: 'Cook', short_county: '031', short_state: 'IL', state: 'Illinois' })
       rows = db.execute('SELECT name, abbr FROM counties')
       expect(rows.length).to eq(1)
-      expect(rows[0]).to eq(['Cook', '031'])
+      expect(rows[0]).to eq(%w[Cook 031])
     end
 
     it 'links the county to its state' do
@@ -53,7 +53,8 @@ RSpec.describe FreeZipcodeData::CountyTable do
     end
 
     it 'returns nil when state cannot be found' do
-      result = table.write({ county: 'Unknown', short_county: '999', short_state: 'ZZ', state: 'Nonexistent' })
+      result = table.write({ county: 'Unknown', short_county: '999', short_state: 'ZZ',
+                             state: 'Nonexistent' })
       expect(result).to be_nil
       rows = db.execute('SELECT COUNT(*) FROM counties')
       expect(rows[0][0]).to eq(0)
@@ -61,9 +62,9 @@ RSpec.describe FreeZipcodeData::CountyTable do
 
     it 'silently ignores duplicate county entries' do
       table.write({ county: 'Cook', short_county: '031', short_state: 'IL', state: 'Illinois' })
-      expect {
+      expect do
         table.write({ county: 'Cook', short_county: '031', short_state: 'IL', state: 'Illinois' })
-      }.not_to raise_error
+      end.not_to raise_error
       rows = db.execute('SELECT COUNT(*) FROM counties')
       expect(rows[0][0]).to eq(1)
     end
