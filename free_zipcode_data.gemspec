@@ -26,6 +26,7 @@ Gem::Specification.new do |spec|
   spec.add_dependency 'colored', '~> 1.2'
   spec.add_dependency 'csv'
   spec.add_dependency 'kiba', '~> 4.0'
+  spec.add_dependency 'logger'
   spec.add_dependency 'optimist', '~> 3.0'
   spec.add_dependency 'ruby-progressbar', '~> 1.9'
   spec.add_dependency 'rubyzip', '>= 1.2.2'

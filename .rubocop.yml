@@ -86,7 +86,7 @@ Metrics/AbcSize:
   Enabled: false
 
 ########################################
-# Metrics Cops
+# Naming Cops
 
 Naming/FileName:
   Enabled: false

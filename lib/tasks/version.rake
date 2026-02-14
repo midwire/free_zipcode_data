@@ -91,7 +91,7 @@ namespace :version do
 
   def write_version_file(version_array)
     version = version_array.join('.')
-    new_version = %(  VERSION = '#{version}'.freeze)
+    new_version = %(  VERSION = '#{version}')
     lines = File.readlines(version_file_path)
     File.open(version_file_path, 'w') do |f|
       lines.each do |line|
@@ -106,7 +106,7 @@ namespace :version do
 
   def update_readme_version_strings
     version_string = read_version.join('.')
-    readme = open('README.md').read
+    readme = File.read('README.md')
     regex = /^\*\*Version: [0-9.]+\*\*$/i
     return nil unless readme =~ regex
 
