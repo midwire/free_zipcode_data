@@ -40,9 +40,9 @@ module DatabaseHelpers
     table = FreeZipcodeData::CountyTable.new(database: db, tablename: tablename)
     table.build
     [
-      { county: 'New York', short_county: '061', short_state: 'NY', state: 'New York' },
-      { county: 'Los Angeles', short_county: '037', short_state: 'CA', state: 'California' },
-      { county: 'Cook', short_county: '031', short_state: 'IL', state: 'Illinois' }
+      { country: 'US', county: 'New York', short_county: '061', short_state: 'NY', state: 'New York' },
+      { country: 'US', county: 'Los Angeles', short_county: '037', short_state: 'CA', state: 'California' },
+      { country: 'US', county: 'Cook', short_county: '031', short_state: 'IL', state: 'Illinois' }
     ].each { |row| table.write(row) }
   end
 end

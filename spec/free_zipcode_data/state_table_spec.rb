@@ -50,8 +50,26 @@ RSpec.describe FreeZipcodeData::StateTable do
       expect(state_country_id).to eq(country_id)
     end
 
-    it 'returns nil and skips when short_state is nil' do
-      result = table.write({ country: 'US', short_state: nil, state: 'Unknown' })
+    it 'creates a state from country lookup when short_state is nil' do
+      row = { country: 'US', short_state: nil, state: 'Unknown' }
+      table.write(row)
+      rows = db.execute("SELECT abbr, name FROM states WHERE abbr = 'US'")
+      expect(rows.length).to eq(1)
+      expect(rows[0]).to eq(['US', 'United States of America'])
+      # Verify row mutation for downstream Kiba destinations
+      expect(row[:short_state]).to eq('US')
+      expect(row[:state]).to eq('United States of America')
+    end
+
+    it 'creates a state from country lookup when short_state is empty' do
+      table.write({ country: 'US', short_state: '', state: 'Unknown' })
+      rows = db.execute("SELECT abbr, name FROM states WHERE abbr = 'US'")
+      expect(rows.length).to eq(1)
+      expect(rows[0]).to eq(['US', 'United States of America'])
+    end
+
+    it 'returns nil when short_state is nil and country is unknown' do
+      result = table.write({ country: 'ZZ', short_state: nil, state: 'Unknown' })
       expect(result).to be_nil
       rows = db.execute('SELECT COUNT(*) FROM states')
       expect(rows[0][0]).to eq(0)
@@ -75,6 +93,13 @@ RSpec.describe FreeZipcodeData::StateTable do
       table.write({ country: 'US', short_state: 'TX', state: "Cote d'Ivoire" })
       rows = db.execute("SELECT name FROM states WHERE abbr = 'TX'")
       expect(rows[0][0]).to eq("Cote d'Ivoire")
+    end
+
+    it 'allows states with the same name in different countries' do
+      table.write({ country: 'US', short_state: 'BC', state: 'British Columbia' })
+      table.write({ country: 'CA', short_state: 'BC', state: 'British Columbia' })
+      rows = db.execute("SELECT COUNT(*) FROM states WHERE name = 'British Columbia'")
+      expect(rows[0][0]).to eq(2)
     end
   end
 end

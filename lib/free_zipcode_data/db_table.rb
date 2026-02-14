@@ -44,10 +44,44 @@ module FreeZipcodeData
       select_first(sql)
     end
 
-    def get_state_id(state_abbr, state_name)
-      sql = "SELECT id FROM states
-        WHERE abbr = '#{state_abbr}' OR name = '#{escape_single_quotes(state_name)}'"
-      select_first(sql)
+    def get_state_id(country, state_abbr, state_name)
+      escaped_country = escape_single_quotes(country)
+      escaped_abbr = escape_single_quotes(state_abbr)
+      escaped_name = escape_single_quotes(state_name)
+
+      # Try exact match: abbr + name + country
+      sql = <<-SQL
+        SELECT s.id FROM states s
+        INNER JOIN countries c ON s.country_id = c.id
+        WHERE s.abbr = '#{escaped_abbr}'
+        AND s.name = '#{escaped_name}'
+        AND c.alpha2 = '#{escaped_country}'
+      SQL
+      res = select_first(sql)
+
+      # Fallback: abbr + country only
+      if res.nil?
+        sql = <<-SQL
+          SELECT s.id FROM states s
+          INNER JOIN countries c ON s.country_id = c.id
+          WHERE s.abbr = '#{escaped_abbr}'
+          AND c.alpha2 = '#{escaped_country}'
+        SQL
+        res = select_first(sql)
+      end
+
+      # Fallback: name + country only
+      if res.nil?
+        sql = <<-SQL
+          SELECT s.id FROM states s
+          INNER JOIN countries c ON s.country_id = c.id
+          WHERE s.name = '#{escaped_name}'
+          AND c.alpha2 = '#{escaped_country}'
+        SQL
+        res = select_first(sql)
+      end
+
+      res
     end
 
     def get_county_id(county)
