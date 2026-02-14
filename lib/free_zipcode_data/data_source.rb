@@ -56,11 +56,11 @@ module FreeZipcodeData
               if options[:clobber]
                 Zip.on_exists_proc = true
                 Logger.instance.verbose("Extracting: #{zipfile}...")
-                entry.extract(country_file)
+                entry.extract(destination_directory: options.work_dir)
               end
             else
               Logger.instance.verbose("Extracting: #{zipfile}...")
-              entry.extract(country_file)
+              entry.extract(destination_directory: options.work_dir)
             end
             break
           end

@@ -23,19 +23,11 @@ Gem::Specification.new do |spec|
   spec.executables   = spec.files.grep(%r{^bin/}) { |f| File.basename(f) }
   spec.require_paths = ['lib']
 
-  spec.add_development_dependency 'bundler'
-  spec.add_development_dependency 'pry-nav', '~> 0.2'
-  spec.add_development_dependency 'rake', '~> 13.0'
-  spec.add_development_dependency 'rspec', '~> 3.7'
-  spec.add_development_dependency 'rubocop'
-  spec.add_development_dependency 'ruby-prof', '~> 0.17'
-  spec.add_development_dependency 'simplecov', '~> 0.16'
-
-  spec.add_runtime_dependency 'csv'
-  spec.add_runtime_dependency 'colored', '~> 1.2'
-  spec.add_runtime_dependency 'kiba', '~> 4.0'
-  spec.add_runtime_dependency 'optimist', '~> 3.0'
-  spec.add_runtime_dependency 'ruby-progressbar', '~> 1.9'
-  spec.add_runtime_dependency 'rubyzip', '>= 1.2.2'
-  spec.add_runtime_dependency 'sqlite3', '~> 1.3'
+  spec.add_dependency 'colored', '~> 1.2'
+  spec.add_dependency 'csv'
+  spec.add_dependency 'kiba', '~> 4.0'
+  spec.add_dependency 'optimist', '~> 3.0'
+  spec.add_dependency 'ruby-progressbar', '~> 1.9'
+  spec.add_dependency 'rubyzip', '>= 1.2.2'
+  spec.add_dependency 'sqlite3', '~> 1.3'
 end

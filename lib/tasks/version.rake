@@ -6,8 +6,6 @@ require 'fileutils'
 
 # rubocop:disable Metrics/BlockLength
 namespace :version do
-  PROJECT_ROOT = File.expand_path(FileUtils.pwd).freeze
-  PROJECT_NAME = ENV['PROJECT_NAME'] || File.basename(PROJECT_ROOT)
 
   desc 'Write changes to the CHANGELOG'
   task :changes do
@@ -23,7 +21,7 @@ namespace :version do
 
   desc 'Increment the patch version and write changes to the changelog'
   task :bump_patch do
-    exit unless check_branch_and_warn
+    exit unless check_branch_and_warn?
     major, minor, patch = read_version
     patch = patch.to_i + 1
     write_version_file([major, minor, patch])
@@ -36,7 +34,7 @@ namespace :version do
 
   desc 'Increment the minor version and write changes to the changelog'
   task :bump_minor do
-    exit unless check_branch_and_warn
+    exit unless check_branch_and_warn?
     major, minor, _patch = read_version
     minor = minor.to_i + 1
     patch = 0
@@ -47,7 +45,7 @@ namespace :version do
 
   desc 'Increment the major version and write changes to the changelog'
   task :bump_major do
-    exit unless check_branch_and_warn
+    exit unless check_branch_and_warn?
     major, _minor, _patch = read_version
     major = major.to_i + 1
     minor = 0
@@ -59,19 +57,27 @@ namespace :version do
 
   private
 
+  def project_root
+    @project_root ||= File.expand_path(FileUtils.pwd).freeze
+  end
+
+  def project_name
+    @project_name ||= ENV['PROJECT_NAME'] || File.basename(project_root)
+  end
+
   def version_file_path
-    split = PROJECT_NAME.split('-')
-    "#{PROJECT_ROOT}/lib/#{split.join('/')}/version.rb"
+    split = project_name.split('-')
+    "#{project_root}/lib/#{split.join('/')}/version.rb"
   end
 
   def module_name
-    case PROJECT_NAME
+    case project_name
     when /-/
-      PROJECT_NAME.split('-').map(&:capitalize).join('::')
+      project_name.split('-').map(&:capitalize).join('::')
     when /_/
-      PROJECT_NAME.split('_').map(&:capitalize).join
+      project_name.split('_').map(&:capitalize).join
     else
-      PROJECT_NAME.capitalize
+      project_name.capitalize
     end
   end
 
@@ -79,7 +85,7 @@ namespace :version do
     silence_warnings do
       load version_file_path
     end
-    text = eval("#{module_name}::VERSION")
+    text = module_name.split('::').inject(Object) { |mod, name| mod.const_get(name) }::VERSION
     text.split('.')
   end
 
@@ -104,15 +110,13 @@ namespace :version do
     regex = /^\*\*Version: [0-9.]+\*\*$/i
     return nil unless readme =~ regex
 
-    File.open('README.md', 'w') do |f|
-      f.write(readme.gsub(regex, "**Version: #{version_string}**"))
-    end
+    File.write('README.md', readme.gsub(regex, "**Version: #{version_string}**"))
   end
 
   def changelog
     return @changelog_path if @changelog_path
 
-    @changelog_path = File.join(PROJECT_ROOT, 'CHANGELOG')
+    @changelog_path = File.join(project_root, 'CHANGELOG')
     FileUtils.touch(@changelog_path)
     @changelog_path
   end
@@ -159,16 +163,15 @@ namespace :version do
     STRING
   end
 
-  def check_branch_and_warn
+  def check_branch_and_warn?
     return true unless current_branch == 'master'
 
     puts(branch_warning_message)
-    while (line = $stdin.gets.chomp)
-      return true if line =~ /[yY]/
+    line = $stdin.gets.chomp
+    return true if line =~ /[yY]/
 
-      puts 'Aborting version bump.'
-      return false
-    end
+    puts 'Aborting version bump.'
+    false
   end
 
   def launch_editor(file)
