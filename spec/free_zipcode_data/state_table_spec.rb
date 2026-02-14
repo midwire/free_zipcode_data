@@ -75,6 +75,13 @@ RSpec.describe FreeZipcodeData::StateTable do
       expect(rows[0][0]).to eq(0)
     end
 
+    it 'returns nil when country is not in the countries table' do
+      result = table.write({ country: 'DE', short_state: 'BY', state: 'Bavaria' })
+      expect(result).to be_nil
+      rows = db.execute('SELECT COUNT(*) FROM states')
+      expect(rows[0][0]).to eq(0)
+    end
+
     it 'silently ignores duplicate state entries' do
       table.write({ country: 'US', short_state: 'NY', state: 'New York' })
       expect { table.write({ country: 'US', short_state: 'NY', state: 'New York' }) }.not_to raise_error

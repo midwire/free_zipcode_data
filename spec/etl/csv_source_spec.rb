@@ -28,7 +28,7 @@ RSpec.describe CsvSource do
       rows = []
       source.each { |row| rows << row }
 
-      expect(rows.length).to eq(5)
+      expect(rows.length).to eq(6)
       expect(rows.first).to be_a(Hash)
       expect(rows.first.keys).to include(:country, :postal_code, :city)
     end

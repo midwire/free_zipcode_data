@@ -17,11 +17,15 @@ Dir[Pathname.new(File.dirname(__FILE__)).parent.join('spec/support/**/*.rb')].ea
 RSpec.configure do |config|
   config.include DatabaseHelpers
 
-  # Silence progress bar output during tests
+  # Silence progress bar and logger output during tests
   config.before do
     allow(ProgressBar).to receive(:create).and_wrap_original do |method, **args|
       method.call(**args, output: StringIO.new)
     end
+    FreeZipcodeData::Logger.instance.log_provider = Logger.new(StringIO.new)
+    FreeZipcodeData::Options.instance.initialize_hash(
+      OpenStruct.new(verbose: false)
+    )
   end
 
   config.expect_with :rspec do |expectations|

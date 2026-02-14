@@ -33,7 +33,10 @@ module FreeZipcodeData
 
       row[:state] = 'Marshall Islands' if row[:short_state] == 'MH' && row[:state].nil?
       country_id = get_country_id(row[:country])
-      return nil unless country_id
+      unless country_id
+        warn_once("Country '#{row[:country]}' not found in countries table, skipping state")
+        return nil
+      end
 
       sql = <<-SQL
         INSERT INTO states (abbr, name, country_id)
@@ -44,8 +47,10 @@ module FreeZipcodeData
       SQL
       begin
         database.execute(sql)
-      rescue SQLite3::ConstraintException
-        # Swallow duplicates
+      rescue SQLite3::ConstraintException => e
+        unless e.message.include?('UNIQUE')
+          raise "Please file an issue at #{ISSUE_URL}: [#{e}] -> SQL: [#{sql}]"
+        end
       rescue StandardError => e
         raise "Please file an issue at #{ISSUE_URL}: [#{e}] -> SQL: [#{sql}]"
       end
@@ -55,11 +60,19 @@ module FreeZipcodeData
 
     private
 
-    # Synthesize state from country for stateless countries (downstream tables need this)
+    # Synthesize state from country for stateless countries.
+    # Mutates the row hash so downstream Kiba destinations (CountyTable, ZipcodeTable)
+    # see the synthesized short_state and state values.
     def synthesize_state(row)
       if row[:short_state].nil? || row[:short_state] == ''
         country_entry = country_lookup_table[row[:country]]
-        return false unless country_entry
+        unless country_entry
+          warn_once(
+            "Cannot synthesize state for country '#{row[:country]}': " \
+            'not in country_lookup_table'
+          )
+          return false
+        end
 
         row[:short_state] = row[:country]
         row[:state] = country_entry[:name]
