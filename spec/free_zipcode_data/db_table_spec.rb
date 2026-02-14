@@ -89,18 +89,41 @@ RSpec.describe FreeZipcodeData::DbTable do
     end
 
     describe 'private #get_state_id' do
-      it 'finds a state by abbreviation' do
-        id = table.send(:get_state_id, 'NY', 'New York')
+      it 'finds a state by exact match (abbr + name + country)' do
+        id = table.send(:get_state_id, 'US', 'NY', 'New York')
         expect(id).to be_a(Integer)
       end
 
-      it 'finds a state by name' do
-        id = table.send(:get_state_id, 'XX', 'New York')
+      it 'falls back to abbr + country when name does not match' do
+        id = table.send(:get_state_id, 'US', 'NY', 'Wrong Name')
+        expect(id).to be_a(Integer)
+      end
+
+      it 'falls back to name + country when abbr does not match' do
+        id = table.send(:get_state_id, 'US', 'XX', 'New York')
         expect(id).to be_a(Integer)
       end
 
       it 'returns nil for an unknown state' do
-        id = table.send(:get_state_id, 'ZZ', 'Nonexistent')
+        id = table.send(:get_state_id, 'US', 'ZZ', 'Nonexistent')
+        expect(id).to be_nil
+      end
+
+      it 'scopes lookup by country' do
+        # Seed a Canadian state with the same abbr as a US state
+        ca_state_table = FreeZipcodeData::StateTable.new(database: db, tablename: 'states')
+        ca_state_table.write({ country: 'CA', short_state: 'NY', state: 'Northern Yukon' })
+
+        us_id = table.send(:get_state_id, 'US', 'NY', 'New York')
+        ca_id = table.send(:get_state_id, 'CA', 'NY', 'Northern Yukon')
+
+        expect(us_id).to be_a(Integer)
+        expect(ca_id).to be_a(Integer)
+        expect(us_id).not_to eq(ca_id)
+      end
+
+      it 'returns nil when all three fallbacks fail' do
+        id = table.send(:get_state_id, 'GB', 'ZZ', 'Nonexistent')
         expect(id).to be_nil
       end
     end

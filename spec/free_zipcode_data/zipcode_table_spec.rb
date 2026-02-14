@@ -33,6 +33,7 @@ RSpec.describe FreeZipcodeData::ZipcodeTable do
   describe '#write' do
     let(:row) do
       {
+        country: 'US',
         postal_code: '60601',
         short_state: 'IL',
         state: 'Illinois',
