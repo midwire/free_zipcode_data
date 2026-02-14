@@ -33,6 +33,7 @@ RSpec.describe FreeZipcodeData::ZipcodeTable do
   describe '#write' do
     let(:row) do
       {
+        country: 'US',
         postal_code: '60601',
         short_state: 'IL',
         state: 'Illinois',
@@ -66,6 +67,13 @@ RSpec.describe FreeZipcodeData::ZipcodeTable do
 
     it 'returns nil and skips when postal_code is nil' do
       result = table.write(row.merge(postal_code: nil))
+      expect(result).to be_nil
+      rows = db.execute('SELECT COUNT(*) FROM zipcodes')
+      expect(rows[0][0]).to eq(0)
+    end
+
+    it 'returns nil and skips when state cannot be found' do
+      result = table.write(row.merge(short_state: 'ZZ', state: 'Nonexistent'))
       expect(result).to be_nil
       rows = db.execute('SELECT COUNT(*) FROM zipcodes')
       expect(rows[0][0]).to eq(0)

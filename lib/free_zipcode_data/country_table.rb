@@ -25,7 +25,10 @@ module FreeZipcodeData
 
     def write(row)
       country_hash = country_lookup_table[row[:country]]
-      return update_progress unless country_hash
+      unless country_hash
+        warn_once("Skipping unknown country '#{row[:country]}': not in country_lookup_table")
+        return update_progress
+      end
 
       sql = <<-SQL
         INSERT INTO countries (alpha2, alpha3, iso, name)
@@ -37,8 +40,10 @@ module FreeZipcodeData
 
       begin
         database.execute(sql)
-      rescue SQLite3::ConstraintException
-        # Swallow duplicates
+      rescue SQLite3::ConstraintException => e
+        unless e.message.include?('UNIQUE')
+          raise "Please file an issue at #{ISSUE_URL}: [#{e}] -> SQL: [#{sql}]"
+        end
       rescue StandardError => e
         raise "Please file an issue at #{ISSUE_URL}: [#{e}] -> SQL: [#{sql}]"
       end

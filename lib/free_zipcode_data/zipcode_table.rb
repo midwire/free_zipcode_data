@@ -29,7 +29,15 @@ module FreeZipcodeData
     def write(row)
       return nil unless row[:postal_code]
 
-      state_id = get_state_id(row[:short_state], row[:state])
+      state_id = get_state_id(row[:country], row[:short_state], row[:state])
+      unless state_id
+        logger.verbose(
+          "Skipping zipcode '#{row[:postal_code]}': no state found for " \
+          "abbr='#{row[:short_state]}', country='#{row[:country]}'"
+        )
+        return nil
+      end
+
       city_name = escape_single_quotes(row[:city])
 
       sql = <<-SQL
@@ -45,8 +53,10 @@ module FreeZipcodeData
 
       begin
         database.execute(sql)
-      rescue SQLite3::ConstraintException => _e
-        # there are some duplicates - swallow them
+      rescue SQLite3::ConstraintException => e
+        unless e.message.include?('UNIQUE')
+          raise "Please file an issue at #{ISSUE_URL}: [#{e}] -> SQL: [#{sql}]"
+        end
       rescue StandardError => e
         raise "Please file an issue at #{ISSUE_URL}: [#{e}] -> SQL: [#{sql}]"
       end

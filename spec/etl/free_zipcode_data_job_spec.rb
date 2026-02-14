@@ -4,7 +4,7 @@ require 'kiba'
 require 'etl/free_zipcode_data_job'
 
 RSpec.describe ETL::FreeZipcodeDataJob do
-  let(:db) { create_test_database(line_count: 5) }
+  let(:db) { create_test_database(line_count: 6) }
   let(:fixture_csv) { File.join(FreeZipcodeData.root, 'spec', 'fixtures', 'test_data.csv') }
   let(:logger) { FreeZipcodeData::Logger.instance }
   let(:string_io) { StringIO.new }
@@ -91,6 +91,45 @@ RSpec.describe ETL::FreeZipcodeDataJob do
       lon = rows[0][1].to_f
       expect(lat).to be_within(0.01).of(40.7484)
       expect(lon).to be_within(0.01).of(-73.9967)
+    end
+
+    it 'scopes duplicate state abbreviations by country' do
+      us_ny = db.execute(<<-SQL)
+        SELECT s.id, s.name, c.alpha2
+        FROM states s
+        JOIN countries c ON s.country_id = c.id
+        WHERE s.abbr = 'NY' AND c.alpha2 = 'US'
+      SQL
+      ca_ny = db.execute(<<-SQL)
+        SELECT s.id, s.name, c.alpha2
+        FROM states s
+        JOIN countries c ON s.country_id = c.id
+        WHERE s.abbr = 'NY' AND c.alpha2 = 'CA'
+      SQL
+      expect(us_ny.length).to eq(1)
+      expect(ca_ny.length).to eq(1)
+      expect(us_ny[0][0]).not_to eq(ca_ny[0][0])
+      expect(us_ny[0][1]).to eq('New York')
+      expect(ca_ny[0][1]).to eq('Northern York')
+    end
+
+    it 'links cross-country zipcodes to the correct state' do
+      us_zip = db.execute(<<-SQL)
+        SELECT z.code, s.name, c.alpha2
+        FROM zipcodes z
+        JOIN states s ON CAST(z.state_id AS INTEGER) = s.id
+        JOIN countries c ON s.country_id = c.id
+        WHERE z.code = '10001'
+      SQL
+      ca_zip = db.execute(<<-SQL)
+        SELECT z.code, s.name, c.alpha2
+        FROM zipcodes z
+        JOIN states s ON CAST(z.state_id AS INTEGER) = s.id
+        JOIN countries c ON s.country_id = c.id
+        WHERE z.code = 'K0A'
+      SQL
+      expect(us_zip[0]).to eq(['10001', 'New York', 'US'])
+      expect(ca_zip[0]).to eq(['K0A', 'Northern York', 'CA'])
     end
   end
 end

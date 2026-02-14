@@ -6,11 +6,11 @@ This project is an automated solution for retrieving and collating US and worldw
 
 ## History
 
-In 2011, we originally pulled down all the US census data we could find, parsed it and exported it into 3 .csv files. Later, we wrote 3 rake tasks to automate this process.
+In 2011, we originally pulled down all the US census data we could find, parsed it and exported it into 3 .csv files.
 
 In 2017 we began using [GeoNames](http://www.geonames.org) data, which is licensed under Creative Commons. We are grateful to [GeoNames](http://www.geonames.org) for sharing, and urge you to [visit their site](http://www.geonames.org) and support their work.
 
-In 2018 we refactored the project and made it into a Ruby gem with a command-line executable for automating this process.
+In 2018 we refactored the project and made it into a Ruby gem with a unified command-line executable (`free_zipcode_data`) that handles downloading, processing, and database generation in a single step.
 
 ## What's Included
 
@@ -22,7 +22,7 @@ See the GeoNames [readme.txt](http://download.geonames.org/export/zip/readme.txt
 
 ## Usage
 
-First, you need to install Ruby and Rubygems. Though that is not a difficult task, it is beyond the scope of this README. A search engine of your choice will help discover how to do this.  Once you have done that:
+First, you need to install Ruby 3.4+ and Rubygems. Though that is not a difficult task, it is beyond the scope of this README. A search engine of your choice will help discover how to do this.  Once you have done that:
 
 ```bash
 $ gem install free_zipcode_data
@@ -60,8 +60,6 @@ $ free_zipcode_data --work-dir /tmp/work_dir --country US --generate-files
 ```bash
 $ free_zipcode_data --work-dir /tmp/work_dir --generate-files
 ```
-
-The rake tasks cascade, from the bottom up. So if you run `rake data:populate_db`, it will automatically call `rake data:build` if the .csv files are missing, which will call `rake data:download` if the .zip files are missing.
 
 ## SQLite3 Database
 
