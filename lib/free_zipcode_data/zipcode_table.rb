@@ -30,6 +30,8 @@ module FreeZipcodeData
       return nil unless row[:postal_code]
 
       state_id = get_state_id(row[:country], row[:short_state], row[:state])
+      return nil unless state_id
+
       city_name = escape_single_quotes(row[:city])
 
       sql = <<-SQL

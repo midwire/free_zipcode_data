@@ -51,10 +51,14 @@ RSpec.describe FreeZipcodeData::StateTable do
     end
 
     it 'creates a state from country lookup when short_state is nil' do
-      table.write({ country: 'US', short_state: nil, state: 'Unknown' })
+      row = { country: 'US', short_state: nil, state: 'Unknown' }
+      table.write(row)
       rows = db.execute("SELECT abbr, name FROM states WHERE abbr = 'US'")
       expect(rows.length).to eq(1)
       expect(rows[0]).to eq(['US', 'United States of America'])
+      # Verify row mutation for downstream Kiba destinations
+      expect(row[:short_state]).to eq('US')
+      expect(row[:state]).to eq('United States of America')
     end
 
     it 'creates a state from country lookup when short_state is empty' do

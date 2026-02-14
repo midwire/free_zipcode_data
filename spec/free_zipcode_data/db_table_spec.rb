@@ -90,22 +90,30 @@ RSpec.describe FreeZipcodeData::DbTable do
 
     describe 'private #get_state_id' do
       it 'finds a state by exact match (abbr + name + country)' do
+        expected_id = db.execute("SELECT id FROM states WHERE abbr = 'NY'")[0][0]
         id = table.send(:get_state_id, 'US', 'NY', 'New York')
-        expect(id).to be_a(Integer)
+        expect(id).to eq(expected_id)
       end
 
       it 'falls back to abbr + country when name does not match' do
+        expected_id = db.execute("SELECT id FROM states WHERE abbr = 'NY'")[0][0]
         id = table.send(:get_state_id, 'US', 'NY', 'Wrong Name')
-        expect(id).to be_a(Integer)
+        expect(id).to eq(expected_id)
       end
 
       it 'falls back to name + country when abbr does not match' do
+        expected_id = db.execute("SELECT id FROM states WHERE name = 'New York'")[0][0]
         id = table.send(:get_state_id, 'US', 'XX', 'New York')
-        expect(id).to be_a(Integer)
+        expect(id).to eq(expected_id)
       end
 
       it 'returns nil for an unknown state' do
         id = table.send(:get_state_id, 'US', 'ZZ', 'Nonexistent')
+        expect(id).to be_nil
+      end
+
+      it 'returns nil when country is nil' do
+        id = table.send(:get_state_id, nil, 'NY', 'New York')
         expect(id).to be_nil
       end
 
