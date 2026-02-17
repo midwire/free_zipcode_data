@@ -1,3 +1,9 @@
+*1.2.0* (February 17, 2026)
+
+* Add Dockerfile for containerized data generation without requiring a local Ruby installation
+* Add docker-entrypoint.sh with COUNTRY environment variable support and input validation
+* Add .dockerignore to keep Docker build context lean
+
 *1.1.0* (February 14, 2026)
 
 * Fix state abbreviation uniqueness: state lookups are now scoped by country, allowing the same abbreviation (e.g., "NY") in different countries
