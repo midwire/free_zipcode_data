@@ -1,0 +1,10 @@
+.git
+vendor/bundle
+pkg
+stubs
+spec
+data
+build
+.claude
+docs
+*.sqlite3
