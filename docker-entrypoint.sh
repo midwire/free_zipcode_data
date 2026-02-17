@@ -7,4 +7,4 @@ if [ -n "${COUNTRY:-}" ]; then
   args+=(--country "$COUNTRY")
 fi
 
-exec bundle exec free_zipcode_data "${args[@]}"
+exec bundle exec ruby bin/free_zipcode_data "${args[@]}"
