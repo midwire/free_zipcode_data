@@ -105,6 +105,30 @@ create table zipcodes (
 
 Both `lat` and `lon`, geocodes, are populated for each zipcode record.
 
+## Docker
+
+If you prefer not to install Ruby locally, you can use Docker to generate the database.
+
+**Build the image:**
+
+```bash
+$ docker build -t free_zipcode_data .
+```
+
+**Generate data for a single country:**
+
+```bash
+$ docker run --rm -v $(pwd)/output:/output -e COUNTRY=US free_zipcode_data
+```
+
+**Generate data for all countries:**
+
+```bash
+$ docker run --rm -v $(pwd)/output:/output free_zipcode_data
+```
+
+The SQLite database and CSV files will be written to the `./output/` directory on your host.
+
 ## Data License
 
 The zipcode data is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by/3.0/">Creative Commons Attribution 3.0 Unported License</a>, carried forward from [GeoNames](http://www.geonames.org).<br />
