@@ -20,7 +20,7 @@ GEM
     csv (3.3.5)
     diff-lcs (1.6.2)
     docile (1.4.1)
-    json (2.18.1)
+    json (2.19.2)
     kiba (4.0.0)
     language_server-protocol (3.17.0.5)
     lint_roller (1.1.0)
