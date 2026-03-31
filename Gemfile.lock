@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    free_zipcode_data (1.2.0)
+    free_zipcode_data (1.2.1)
       colored (~> 1.2)
       csv
       kiba (~> 4.0)
