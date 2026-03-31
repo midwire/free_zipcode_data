@@ -1,3 +1,7 @@
+*1.2.1* (March 31, 2026)
+
+* Update "json" gem to mitigate the latest CVE
+
 *1.2.0* (February 17, 2026)
 
 * Add Dockerfile for containerized data generation without requiring a local Ruby installation
